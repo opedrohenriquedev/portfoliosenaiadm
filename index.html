@@ -996,6 +996,76 @@
             box-shadow: 0 4px 10px var(--senai-red-glow);
         }
 
+        /* BARRA DE ORDENAÇÃO E FILTRO DENTRO DA DISCIPLINA */
+        .detail-control-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: 14px 22px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-subtle);
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .sort-control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sort-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .sort-select {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-full);
+            padding: 7px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-heading);
+            font-family: inherit;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .sort-select:focus {
+            border-color: var(--senai-red);
+            box-shadow: 0 0 0 3px var(--senai-red-soft);
+        }
+
+        .unit-expand-all-btn {
+            background: none;
+            border: 1px solid var(--border-light);
+            background: var(--bg-subtle);
+            border-radius: var(--radius-full);
+            padding: 6px 14px;
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .unit-expand-all-btn:hover {
+            color: var(--senai-red);
+            border-color: var(--senai-red-border);
+        }
+
         /* DETAIL VIEW */
         .detail-view {
             display: none;
@@ -2075,6 +2145,26 @@
         let inlineFilterQuery = '';
         let currentViewMode = 'curriculum';
         let repoFilterType = 'all';
+        let activitySortOrder = 'default'; // 'default', 'az', 'za', 'recent', 'oldest'
+
+        function setActivitySortOrder(order) {
+            activitySortOrder = order;
+            if (currentComponent) {
+                renderComponentContents(currentComponent);
+            }
+        }
+
+        function toggleAllUnits() {
+            const units = document.querySelectorAll('#detailContentsList .content-unit');
+            const anyOpen = Array.from(units).some(u => !u.classList.contains('collapsed'));
+            units.forEach(u => {
+                if (anyOpen) {
+                    u.classList.add('collapsed');
+                } else {
+                    u.classList.remove('collapsed');
+                }
+            });
+        }
 
         function switchViewMode(mode) {
             currentViewMode = mode;
@@ -2427,6 +2517,10 @@
                 </div>
             `;
 
+            renderComponentContents(comp);
+        }
+
+        function renderComponentContents(comp) {
             const contentsList = document.getElementById('detailContentsList');
             contentsList.innerHTML = '';
 
@@ -2440,12 +2534,45 @@
                 return;
             }
 
+            // BARRA DE CONTROLE E ORDENAÇÃO
+            const controlBar = document.createElement('div');
+            controlBar.className = 'detail-control-bar';
+            controlBar.innerHTML = `
+                <div class="sort-control-group">
+                    <span class="sort-label"><i class="bi bi-arrow-down-up text-danger"></i> Ordenar atividades por:</span>
+                    <select class="sort-select" onchange="setActivitySortOrder(this.value)">
+                        <option value="default" ${activitySortOrder === 'default' ? 'selected' : ''}>Ordem do Professor (Padrão)</option>
+                        <option value="az" ${activitySortOrder === 'az' ? 'selected' : ''}>Alfabética: A → Z</option>
+                        <option value="za" ${activitySortOrder === 'za' ? 'selected' : ''}>Alfabética: Z → A</option>
+                        <option value="recent" ${activitySortOrder === 'recent' ? 'selected' : ''}>Mais Recentes Primeiro</option>
+                        <option value="oldest" ${activitySortOrder === 'oldest' ? 'selected' : ''}>Mais Antigas Primeiro</option>
+                    </select>
+                </div>
+                <button class="unit-expand-all-btn" onclick="toggleAllUnits()">
+                    <i class="bi bi-arrows-expand"></i> Expandir / Recolher Tudo
+                </button>
+            `;
+            contentsList.appendChild(controlBar);
+
             comp.contents.forEach((unit, idx) => {
                 const unitEl = document.createElement('div');
                 unitEl.className = 'content-unit';
 
+                // CLONE DAS ATIVIDADES PARA ORDENAÇÃO
+                let sortedActivities = [...unit.activities];
+
+                if (activitySortOrder === 'az') {
+                    sortedActivities.sort((a, b) => (a.title || "").localeCompare(b.title || "", 'pt-BR', { sensitivity: 'base' }));
+                } else if (activitySortOrder === 'za') {
+                    sortedActivities.sort((a, b) => (b.title || "").localeCompare(a.title || "", 'pt-BR', { sensitivity: 'base' }));
+                } else if (activitySortOrder === 'recent') {
+                    sortedActivities.sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+                } else if (activitySortOrder === 'oldest') {
+                    sortedActivities.sort((a, b) => (a.date || "").localeCompare(b.date || ""));
+                }
+
                 let activitiesHtml = '';
-                unit.activities.forEach(act => {
+                sortedActivities.forEach(act => {
                     const isWork = act.type.includes('Atividade') || act.type.includes('Trabalho');
                     const badgeClass = isWork ? 'type-work' : 'type-material';
 
@@ -2495,7 +2622,7 @@
                             <p>${escapeHtml(unit.description || 'Conteúdos didáticos e materiais pedagógicos.')}</p>
                         </div>
                         <div class="unit-header-right">
-                            <span class="unit-counter-badge">${unit.activities.length} ${unit.activities.length === 1 ? 'item' : 'itens'}</span>
+                            <span class="unit-counter-badge">${sortedActivities.length} ${sortedActivities.length === 1 ? 'item' : 'itens'}</span>
                             <i class="bi bi-chevron-down unit-toggle-chevron"></i>
                         </div>
                     </div>
@@ -2505,6 +2632,7 @@
                 `;
                 contentsList.appendChild(unitEl);
             });
+        }
         }
 
         // ACORDEÃO INTERATIVO PARA CADA UNIDADE
