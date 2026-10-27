@@ -1,0 +1,2102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio SENAI – Técnico em Administração</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <style>
+        :root {
+            --senai-red: #E30613;
+            --senai-red-hover: #B8000E;
+            --senai-red-deep: #8E000B;
+            --senai-red-soft: rgba(227, 6, 19, 0.08);
+            --senai-red-border: rgba(227, 6, 19, 0.22);
+            --senai-red-glow: rgba(227, 6, 19, 0.25);
+            
+            --bg-page: #F8FAFC;
+            --bg-surface: #FFFFFF;
+            --bg-subtle: #F1F5F9;
+            --border-light: #E2E8F0;
+            --border-hover: #CBD5E1;
+            
+            --text-heading: #0F172A;
+            --text-body: #334155;
+            --text-muted: #64748B;
+            --text-subtle: #94A3B8;
+            
+            --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+            --shadow-card: 0 4px 16px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -2px rgba(15, 23, 42, 0.03);
+            --shadow-hover: 0 20px 35px -8px rgba(15, 23, 42, 0.12), 0 6px 16px -2px rgba(227, 6, 19, 0.1);
+            
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --radius-full: 9999px;
+        }
+
+        /* DARK THEME SUPPORT */
+        [data-theme="dark"] {
+            --bg-page: #0B0F19;
+            --bg-surface: #131B2E;
+            --bg-subtle: #1A243B;
+            --border-light: #232F4E;
+            --border-hover: #334269;
+            --text-heading: #F8FAFC;
+            --text-body: #CBD5E1;
+            --text-muted: #94A3B8;
+            --text-subtle: #64748B;
+            --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(227, 6, 19, 0.2);
+            --senai-red-soft: rgba(227, 6, 19, 0.15);
+            --senai-red-border: rgba(227, 6, 19, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.15s ease;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-body);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .brand-text h1, .stat-number, .component-name, .tab-btn {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* CUSTOM SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-page);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+        [data-theme="dark"] ::-webkit-scrollbar-thumb {
+            background: #2D3A58;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--senai-red);
+        }
+
+        /* TOP ACCENT LINE WITH GLOW */
+        .top-accent-line {
+            height: 4px;
+            background: linear-gradient(90deg, #E30613 0%, #FF3B30 50%, #B8000E 100%);
+            box-shadow: 0 0 12px var(--senai-red-glow);
+            width: 100%;
+        }
+
+        /* HEADER */
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-light);
+            box-shadow: var(--shadow-subtle);
+        }
+        [data-theme="dark"] .app-header {
+            background: rgba(19, 27, 46, 0.88);
+        }
+
+        .header-container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 14px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .brand-logo-img {
+            height: 38px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 4px;
+            box-shadow: 0 4px 10px rgba(227, 6, 19, 0.25);
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .header-brand:hover .brand-logo-img {
+            transform: scale(1.05);
+        }
+
+        .brand-divider {
+            width: 1px;
+            height: 28px;
+            background: var(--border-light);
+        }
+
+        .brand-text h1 {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-heading);
+            letter-spacing: -0.3px;
+            line-height: 1.2;
+        }
+
+        .brand-text p {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .badge-institution {
+            font-size: 10px;
+            font-weight: 700;
+            background: var(--senai-red-soft);
+            color: var(--senai-red);
+            padding: 2px 7px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            border: 1px solid var(--senai-red-border);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .search-trigger-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            padding: 9px 20px;
+            border-radius: var(--radius-full);
+            font-size: 13.5px;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            box-shadow: var(--shadow-subtle);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .search-trigger-btn:hover {
+            border-color: var(--senai-red-border);
+            color: var(--text-heading);
+            box-shadow: 0 4px 14px rgba(227, 6, 19, 0.12);
+            transform: translateY(-1px);
+        }
+
+        .search-trigger-btn i {
+            color: var(--senai-red);
+            font-size: 15px;
+        }
+
+        .search-shortcut {
+            font-size: 11px;
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg-subtle);
+            color: var(--text-body);
+            padding: 2px 7px;
+            border-radius: 6px;
+            font-weight: 600;
+            border: 1px solid var(--border-light);
+        }
+
+        .theme-toggle-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: var(--shadow-subtle);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .theme-toggle-btn:hover {
+            color: var(--senai-red);
+            border-color: var(--senai-red-border);
+            transform: rotate(15deg);
+        }
+
+        /* MAIN CONTAINER */
+        .main-container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 36px 28px 90px;
+        }
+
+        /* HERO STATS BANNER */
+        .hero-banner {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-xl);
+            padding: 36px 42px;
+            margin-bottom: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 28px;
+            box-shadow: var(--shadow-card);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #E30613 0%, #FF4D4D 50%, #B8000E 100%);
+        }
+
+        .hero-title {
+            max-width: 660px;
+        }
+
+        .hero-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: var(--senai-red-soft);
+            color: var(--senai-red);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 5px 14px;
+            border-radius: var(--radius-full);
+            margin-bottom: 14px;
+            border: 1px solid var(--senai-red-border);
+        }
+
+        .hero-title h2 {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-heading);
+            letter-spacing: -0.6px;
+            line-height: 1.25;
+            margin-bottom: 10px;
+        }
+
+        .hero-title p {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .hero-stats-deck {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card-glass {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: 16px 22px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 155px;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .stat-card-glass:hover {
+            border-color: var(--senai-red-border);
+            transform: translateY(-3px);
+            background: var(--bg-surface);
+            box-shadow: var(--shadow-card);
+        }
+
+        .stat-icon-wrapper {
+            width: 46px;
+            height: 46px;
+            border-radius: var(--radius-sm);
+            background: var(--senai-red-soft);
+            color: var(--senai-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .stat-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-number {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--text-heading);
+            line-height: 1.1;
+        }
+
+        .stat-label {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        /* SEMESTER NAVIGATION TABS & FILTER BAR */
+        .controls-toolbar {
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 14px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .semester-tabs {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            padding: 9px 20px;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: var(--radius-full);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-heading);
+            background: var(--bg-surface);
+            border-color: var(--border-light);
+        }
+
+        .tab-btn.active {
+            color: #FFFFFF;
+            background: var(--senai-red);
+            box-shadow: 0 4px 14px rgba(227, 6, 19, 0.35);
+        }
+
+        .tab-badge {
+            font-size: 11px;
+            background: var(--bg-subtle);
+            color: var(--text-body);
+            padding: 2px 7px;
+            border-radius: var(--radius-full);
+            font-weight: 700;
+        }
+
+        .tab-btn.active .tab-badge {
+            background: rgba(255, 255, 255, 0.25);
+            color: #FFFFFF;
+        }
+
+        /* LIVE IN-LINE FILTER INPUT */
+        .inline-search-box {
+            position: relative;
+            min-width: 240px;
+        }
+
+        .inline-search-box i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-subtle);
+            font-size: 14px;
+        }
+
+        .inline-search-input {
+            width: 100%;
+            padding: 8px 14px 8px 38px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-light);
+            background: var(--bg-surface);
+            color: var(--text-heading);
+            font-size: 13px;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .inline-search-input:focus {
+            border-color: var(--senai-red);
+            box-shadow: 0 0 0 3px var(--senai-red-soft);
+        }
+
+        /* SEMESTER SECTION HEADING */
+        .semester-section-heading {
+            font-size: 21px;
+            font-weight: 800;
+            color: var(--text-heading);
+            margin: 40px 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .semester-section-heading::before {
+            content: '';
+            display: inline-block;
+            width: 5px;
+            height: 24px;
+            background: var(--senai-red);
+            border-radius: 3px;
+            box-shadow: 0 0 8px var(--senai-red-glow);
+        }
+
+        /* CARDS GRID */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 26px;
+            margin-bottom: 32px;
+        }
+
+        @media (max-width: 1080px) {
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 680px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* COMPONENT CARD - 3D HOVER TILT FEEL */
+        .component-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            cursor: pointer;
+            transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .component-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--senai-red);
+            transition: height 0.2s ease;
+        }
+
+        .component-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--senai-red-border);
+        }
+
+        .component-card:hover::before {
+            height: 6px;
+        }
+
+        .card-body {
+            padding: 28px 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-header-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .component-icon-box {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-md);
+            background: var(--senai-red-soft);
+            color: var(--senai-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            border: 1px solid var(--senai-red-border);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .component-card:hover .component-icon-box {
+            transform: scale(1.1) rotate(4deg);
+            background: var(--senai-red);
+            color: #FFFFFF;
+            box-shadow: 0 6px 14px var(--senai-red-glow);
+        }
+
+        .card-chips {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .chip-sem {
+            background: rgba(37, 99, 235, 0.08);
+            color: #2563EB;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+        }
+        [data-theme="dark"] .chip-sem {
+            background: rgba(59, 130, 246, 0.18);
+            color: #60A5FA;
+        }
+
+        .chip-hours {
+            background: var(--bg-subtle);
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-light);
+        }
+
+        .component-code {
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--senai-red);
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .component-name {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--text-heading);
+            line-height: 1.35;
+            margin-bottom: 18px;
+            flex-grow: 1;
+            letter-spacing: -0.2px;
+        }
+
+        .card-metrics-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            background: var(--bg-subtle);
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
+            border: 1px solid var(--border-light);
+            margin-bottom: 18px;
+        }
+
+        .metric-cell {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .metric-val {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-heading);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .metric-title {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .card-action-bar {
+            padding-top: 14px;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--senai-red);
+        }
+
+        .action-arrow {
+            width: 30px;
+            height: 30px;
+            border-radius: var(--radius-full);
+            background: var(--senai-red-soft);
+            color: var(--senai-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .component-card:hover .action-arrow {
+            background: var(--senai-red);
+            color: #FFFFFF;
+            transform: translateX(4px);
+            box-shadow: 0 4px 10px var(--senai-red-glow);
+        }
+
+        /* DETAIL VIEW */
+        .detail-view {
+            display: none;
+            animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            color: var(--text-muted);
+            font-size: 13.5px;
+            font-weight: 700;
+            padding: 9px 20px;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-subtle);
+            transition: all 0.2s ease;
+        }
+
+        .btn-back-home:hover {
+            color: var(--senai-red);
+            border-color: var(--senai-red-border);
+            transform: translateX(-4px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .detail-header-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-xl);
+            padding: 38px;
+            margin-bottom: 32px;
+            border-left: 6px solid var(--senai-red);
+            box-shadow: var(--shadow-card);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .detail-header-info h2 {
+            font-size: 30px;
+            font-weight: 800;
+            color: var(--text-heading);
+            letter-spacing: -0.6px;
+            line-height: 1.25;
+            margin-bottom: 14px;
+        }
+
+        .detail-tags-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .detail-pill-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-body);
+            background: var(--bg-subtle);
+            padding: 6px 14px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-light);
+        }
+
+        .detail-pill-tag i {
+            color: var(--senai-red);
+        }
+
+        /* CONTENT UNITS / ACCORDIONS */
+        .content-unit {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-card);
+            overflow: hidden;
+        }
+
+        .content-unit-header {
+            padding: 22px 28px;
+            background: var(--bg-subtle);
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .content-unit-header:hover {
+            background: rgba(227, 6, 19, 0.03);
+        }
+
+        .unit-title-group h3 {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-heading);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .unit-title-group p {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        .unit-header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .unit-counter-badge {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--senai-red);
+            background: var(--senai-red-soft);
+            padding: 5px 12px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--senai-red-border);
+        }
+
+        .unit-toggle-chevron {
+            font-size: 14px;
+            color: var(--text-muted);
+            transition: transform 0.25s ease;
+        }
+
+        .content-unit.collapsed .unit-toggle-chevron {
+            transform: rotate(-90deg);
+        }
+
+        .content-unit.collapsed .activities-list {
+            display: none;
+        }
+
+        .activities-list {
+            padding: 24px 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* ACTIVITY CARD */
+        .activity-card {
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: 22px;
+            background: var(--bg-surface);
+            transition: all 0.2s ease;
+        }
+
+        .activity-card:hover {
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .activity-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 10px;
+        }
+
+        .activity-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-heading);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            line-height: 1.4;
+        }
+
+        .activity-type-pill {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+
+        .type-material {
+            background: #E0F2FE;
+            color: #0369A1;
+        }
+        [data-theme="dark"] .type-material {
+            background: rgba(14, 165, 233, 0.18);
+            color: #38BDF8;
+        }
+
+        .type-work {
+            background: #FEF3C7;
+            color: #B45309;
+        }
+        [data-theme="dark"] .type-work {
+            background: rgba(245, 158, 11, 0.18);
+            color: #FBBF24;
+        }
+
+        .activity-desc {
+            font-size: 14px;
+            color: var(--text-body);
+            margin: 12px 0 16px;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            background: var(--bg-subtle);
+            padding: 14px 18px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-light);
+        }
+
+        .attachments-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .attachment-pill-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-heading);
+            text-decoration: none;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .attachment-pill-btn:hover {
+            border-color: var(--senai-red);
+            color: var(--senai-red);
+            background: var(--senai-red-soft);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(227, 6, 19, 0.12);
+        }
+
+        .attachment-pill-btn.pdf i { color: #DC2626; font-size: 16px; }
+        .attachment-pill-btn.image i { color: #16A34A; font-size: 16px; }
+        .attachment-pill-btn.link i { color: #2563EB; font-size: 16px; }
+        .attachment-pill-btn.video i { color: #DC2626; font-size: 16px; }
+
+        .local-badge {
+            font-size: 9px;
+            background: #DCFCE7;
+            color: #15803D;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+        [data-theme="dark"] .local-badge {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ADE80;
+        }
+
+        /* SEARCH MODAL (COMMAND PALETTE) */
+        .search-modal-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 70px;
+        }
+
+        .search-modal-backdrop.show {
+            display: flex;
+        }
+
+        .search-modal {
+            background: var(--bg-surface);
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 740px;
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.35);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            max-height: 82vh;
+            animation: modalPop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes modalPop {
+            from { transform: translateY(-20px) scale(0.98); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        .search-input-wrapper {
+            display: flex;
+            align-items: center;
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border-light);
+            gap: 14px;
+        }
+
+        .search-input-wrapper i.search-icon {
+            font-size: 20px;
+            color: var(--senai-red);
+        }
+
+        .search-input {
+            flex-grow: 1;
+            border: none;
+            outline: none;
+            font-size: 17px;
+            background: transparent;
+            color: var(--text-heading);
+            font-family: inherit;
+        }
+
+        .search-clear-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 18px;
+            padding: 4px;
+            border-radius: 4px;
+        }
+
+        .search-clear-btn:hover {
+            color: var(--text-heading);
+        }
+
+        .search-filters-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--bg-subtle);
+            border-bottom: 1px solid var(--border-light);
+            overflow-x: auto;
+        }
+
+        .filter-chip {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            padding: 6px 14px;
+            border-radius: var(--radius-full);
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.15s ease;
+        }
+
+        .filter-chip:hover {
+            border-color: var(--senai-red-border);
+            color: var(--senai-red);
+        }
+
+        .filter-chip.active {
+            background: var(--senai-red);
+            color: #FFFFFF;
+            border-color: var(--senai-red);
+        }
+
+        .search-results-container {
+            overflow-y: auto;
+            padding: 16px 20px;
+            flex-grow: 1;
+        }
+
+        .search-group-title {
+            font-size: 11.5px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--text-muted);
+            padding: 10px 10px 6px;
+        }
+
+        .search-result-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 14px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            gap: 14px;
+        }
+
+        .search-result-item:hover {
+            background: var(--bg-subtle);
+        }
+
+        .search-result-main {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+        }
+
+        .result-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .result-icon.act { background: #FEF3C7; color: #B45309; }
+        .result-icon.pdf { background: #FEE2E2; color: #DC2626; }
+        .result-icon.image { background: #DCFCE7; color: #16A34A; }
+        .result-icon.link { background: #DBEAFE; color: #2563EB; }
+
+        .result-texts {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .result-title {
+            font-size: 14.5px;
+            font-weight: 700;
+            color: var(--text-heading);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .result-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .result-badge {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-body);
+            background: var(--bg-subtle);
+            padding: 3px 10px;
+            border-radius: var(--radius-full);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .search-empty-state {
+            padding: 50px 20px;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .search-empty-state i {
+            font-size: 40px;
+            color: var(--text-subtle);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        /* MEDIA VIEWER MODAL */
+        .viewer-modal-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 120;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .viewer-modal-backdrop.show {
+            display: flex;
+        }
+
+        .viewer-modal {
+            background: var(--bg-surface);
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 1000px;
+            height: 88vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 25px 60px -15px rgba(0,0,0,0.5);
+            border: 1px solid var(--border-light);
+        }
+
+        .viewer-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-surface);
+        }
+
+        .viewer-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-heading);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .viewer-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-action-icon {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-light);
+            color: var(--text-muted);
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.15s ease;
+            text-decoration: none;
+        }
+
+        .btn-action-icon:hover {
+            color: var(--senai-red);
+            border-color: var(--senai-red-border);
+            background: var(--senai-red-soft);
+        }
+
+        .viewer-body {
+            flex-grow: 1;
+            background: #0B0F19;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .viewer-body iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #FFFFFF;
+        }
+
+        .viewer-body img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.5);
+        }
+
+        /* BACK TO TOP BUTTON */
+        .btn-scroll-top {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-full);
+            background: var(--senai-red);
+            color: #FFFFFF;
+            border: none;
+            box-shadow: 0 6px 18px var(--senai-red-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 40;
+        }
+
+        .btn-scroll-top.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .btn-scroll-top:hover {
+            transform: translateY(-4px);
+            background: var(--senai-red-hover);
+        }
+
+        /* FOOTER */
+        .app-footer {
+            margin-top: 80px;
+            border-top: 1px solid var(--border-light);
+            background: var(--bg-surface);
+            padding: 34px 24px;
+            text-align: center;
+            font-size: 13.5px;
+            color: var(--text-muted);
+        }
+
+        .footer-logo {
+            height: 28px;
+            margin-bottom: 14px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-accent-line"></div>
+
+    <!-- HEADER INSTITUCIONAL SENAI -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="header-brand" onclick="navigateToHome()">
+                <img src="logo-senai.png" alt="SENAI" class="brand-logo-img">
+                <div class="brand-divider"></div>
+                <div class="brand-text">
+                    <h1>Portfólio SENAI</h1>
+                    <p>Técnico em Administração <span class="badge-institution">Educação Técnica</span></p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <button class="search-trigger-btn" onclick="openSearchModal()">
+                    <i class="bi bi-search"></i>
+                    <span>Buscar em todas as atividades, apostilas...</span>
+                    <span class="search-shortcut">Ctrl + K</span>
+                </button>
+
+                <!-- DARK MODE TOGGLE -->
+                <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleDarkMode()" title="Alternar Modo Escuro / Claro">
+                    <i class="bi bi-moon-stars" id="themeIcon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-container">
+        
+        <!-- VISTA 1: GRID PRINCIPAL DE SEMESTRES E MATÉRIAS -->
+        <div id="homeView">
+            
+            <!-- HERO BANNER STATS -->
+            <section class="hero-banner">
+                <div class="hero-title">
+                    <div class="hero-badge-pill">
+                        <i class="bi bi-patch-check-fill"></i> Evidências Acadêmicas Validadas
+                    </div>
+                    <h2>Estrutura Curricular & Portfólio Digital</h2>
+                    <p>Repositório acadêmico institucional com todos os 4 semestres, 200 apostilas e arquivos em PDF baixados localmente para consulta instantânea.</p>
+                </div>
+
+                <div class="hero-stats-deck">
+                    <div class="stat-card-glass">
+                        <div class="stat-icon-wrapper">
+                            <i class="bi bi-journals"></i>
+                        </div>
+                        <div class="stat-text">
+                            <span class="stat-number" id="statCurricula">15</span>
+                            <span class="stat-label">Disciplinas</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card-glass">
+                        <div class="stat-icon-wrapper">
+                            <i class="bi bi-check2-circle"></i>
+                        </div>
+                        <div class="stat-text">
+                            <span class="stat-number" id="statActivities">217</span>
+                            <span class="stat-label">Atividades</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card-glass">
+                        <div class="stat-icon-wrapper">
+                            <i class="bi bi-file-earmark-pdf"></i>
+                        </div>
+                        <div class="stat-text">
+                            <span class="stat-number" id="statPdfs">146</span>
+                            <span class="stat-label">PDFs & Guias</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TOOLBAR DE CONTROLE: TABS DE SEMESTRE + FILTRO EM TEMPO REAL -->
+            <div class="controls-toolbar">
+                <div class="semester-tabs" id="semesterTabs">
+                    <button class="tab-btn active" data-sem="all" onclick="filterSemester('all')">
+                        <i class="bi bi-grid-fill"></i> Todos <span class="tab-badge" id="badgeAll">15</span>
+                    </button>
+                    <button class="tab-btn" data-sem="1" onclick="filterSemester('1')">
+                        1º Semestre <span class="tab-badge">4</span>
+                    </button>
+                    <button class="tab-btn" data-sem="2" onclick="filterSemester('2')">
+                        2º Semestre <span class="tab-badge">4</span>
+                    </button>
+                    <button class="tab-btn" data-sem="3" onclick="filterSemester('3')">
+                        3º Semestre <span class="tab-badge">4</span>
+                    </button>
+                    <button class="tab-btn" data-sem="4" onclick="filterSemester('4')">
+                        4º Semestre <span class="tab-badge">3</span>
+                    </button>
+                </div>
+
+                <div class="inline-search-box">
+                    <i class="bi bi-filter"></i>
+                    <input type="text" class="inline-search-input" id="inlineFilterInput" placeholder="Filtrar matérias..." oninput="filterCardsInRealTime(this.value)">
+                </div>
+            </div>
+
+            <!-- CONTAINER DINÂMICO DOS CARDS -->
+            <div id="componentsContainer"></div>
+
+        </div>
+
+        <!-- VISTA 2: PÁGINA DETALHADA DA MATÉRIA -->
+        <div id="detailView" class="detail-view">
+            <button class="btn-back-home" onclick="navigateToHome()">
+                <i class="bi bi-arrow-left"></i> Voltar à Matriz Curricular
+            </button>
+
+            <div class="detail-header-card" id="detailHeader">
+                <!-- Inserido dinamicamente -->
+            </div>
+
+            <div id="detailContentsList">
+                <!-- Conteúdos e atividades -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- BACK TO TOP BUTTON -->
+    <button class="btn-scroll-top" id="btnScrollTop" onclick="scrollToTop()" title="Voltar ao Topo">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <!-- FOOTER INSTITUCIONAL -->
+    <footer class="app-footer">
+        <img src="logo-senai.png" alt="SENAI" class="footer-logo"><br>
+        <strong>Serviço Nacional de Aprendizagem Industrial – SENAI</strong><br>
+        Curso Técnico em Administração • Portfólio Digital de Evidências Acadêmicas
+    </footer>
+
+    <!-- MODAL DE BUSCA GLOBAL (COMMAND PALETTE) -->
+    <div class="search-modal-backdrop" id="searchBackdrop" onclick="handleBackdropClick(event)">
+        <div class="search-modal">
+            <div class="search-input-wrapper">
+                <i class="bi bi-search search-icon"></i>
+                <input type="text" class="search-input" id="globalSearchInput" placeholder="Buscar atividade, apostila PDF, situação de aprendizagem..." oninput="handleSearchInput(this.value)">
+                <button class="search-clear-btn" onclick="closeSearchModal()"><i class="bi bi-x-lg"></i></button>
+            </div>
+
+            <div class="search-filters-bar">
+                <button class="filter-chip active" data-type="all" onclick="setSearchFilter('type', 'all', this)">Todos os itens</button>
+                <button class="filter-chip" data-type="pdf" onclick="setSearchFilter('type', 'pdf', this)"><i class="bi bi-file-earmark-pdf"></i> Documentos & PDFs</button>
+                <button class="filter-chip" data-type="activity" onclick="setSearchFilter('type', 'activity', this)"><i class="bi bi-journal-check"></i> Atividades</button>
+                <button class="filter-chip" data-type="image" onclick="setSearchFilter('type', 'image', this)"><i class="bi bi-image"></i> Imagens & Esquemas</button>
+            </div>
+
+            <div class="search-results-container" id="searchResults">
+                <!-- Itens da busca -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE VISUALIZAÇÃO DE MÍDIA (PDF E LIGHTBOX) -->
+    <div class="viewer-modal-backdrop" id="viewerBackdrop" onclick="handleViewerBackdropClick(event)">
+        <div class="viewer-modal">
+            <div class="viewer-header">
+                <div class="viewer-title" id="viewerTitle">
+                    <i class="bi bi-file-earmark-pdf text-danger"></i>
+                    <span>Nome do Arquivo.pdf</span>
+                </div>
+                <div class="viewer-actions">
+                    <a id="viewerDownloadBtn" href="#" download class="btn-action-icon" title="Baixar Arquivo">
+                        <i class="bi bi-download"></i>
+                    </a>
+                    <a id="viewerExternalBtn" href="#" target="_blank" class="btn-action-icon" title="Abrir em Nova Aba">
+                        <i class="bi bi-box-arrow-up-right"></i>
+                    </a>
+                    <button class="btn-action-icon" onclick="closeViewer()" title="Fechar">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="viewer-body" id="viewerBody">
+                <!-- iframe / imagem -->
+            </div>
+        </div>
+    </div>
+
+    <!-- BASE DE DADOS DOS DOCUMENTOS LOCAIS -->
+    <script src="portfolio_data.js"></script>
+
+    <!-- SCRIPT DE INTERATIVIDADE -->
+    <script>
+        let currentSemester = 'all';
+        let currentComponent = null;
+        let searchFilterType = 'all';
+        let inlineFilterQuery = '';
+
+        function normalizeStr(str) {
+            return (str || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            initUrlRouting();
+            renderComponents();
+            updateGlobalStats();
+            setupKeyboardShortcuts();
+            setupScrollListener();
+        });
+
+        // TEMA DARK / LIGHT COM PERSISTÊNCIA LOCALSTORAGE
+        function initTheme() {
+            const savedTheme = localStorage.getItem('senai_theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+        }
+
+        function toggleDarkMode() {
+            const current = document.documentElement.getAttribute('data-theme') || 'light';
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('senai_theme', next);
+            updateThemeIcon(next);
+        }
+
+        function updateThemeIcon(theme) {
+            const icon = document.getElementById('themeIcon');
+            if (theme === 'dark') {
+                icon.className = 'bi bi-sun';
+            } else {
+                icon.className = 'bi bi-moon-stars';
+            }
+        }
+
+        // ROTEAMENTO
+        function initUrlRouting() {
+            window.addEventListener('popstate', handleRoute);
+            handleRoute();
+        }
+
+        function handleRoute() {
+            const hash = window.location.hash;
+            if (hash.startsWith('#/semestre/')) {
+                const sem = hash.replace('#/semestre/', '');
+                filterSemester(sem, false);
+            } else if (hash.startsWith('#/materia/')) {
+                const code = hash.replace('#/materia/', '');
+                const comp = window.PORTFOLIO_DATA.find(c => c.code === code);
+                if (comp) {
+                    showComponentDetail(comp, false);
+                } else {
+                    navigateToHome(false);
+                }
+            } else {
+                navigateToHome(false);
+            }
+        }
+
+        // FILTRO EM TEMPO REAL NOS CARDS (INLINE)
+        function filterCardsInRealTime(val) {
+            inlineFilterQuery = normalizeStr(val.trim());
+            renderComponents();
+        }
+
+        // RENDERIZAÇÃO DOS CARDS COM FILTROS COMBINADOS
+        function renderComponents() {
+            const container = document.getElementById('componentsContainer');
+            container.innerHTML = '';
+
+            const semesters = [
+                { id: 1, title: '1º Semestre' },
+                { id: 2, title: '2º Semestre' },
+                { id: 3, title: '3º Semestre' },
+                { id: 4, title: '4º Semestre' }
+            ];
+
+            let renderedTotal = 0;
+
+            semesters.forEach(sem => {
+                if (currentSemester !== 'all' && currentSemester !== String(sem.id)) {
+                    return;
+                }
+
+                let list = window.PORTFOLIO_DATA.filter(c => c.semester === sem.id);
+
+                if (inlineFilterQuery) {
+                    list = list.filter(c => 
+                        normalizeStr(c.name).includes(inlineFilterQuery) ||
+                        normalizeStr(c.code).includes(inlineFilterQuery)
+                    );
+                }
+
+                if (list.length === 0) return;
+                renderedTotal += list.length;
+
+                if (currentSemester === 'all') {
+                    const heading = document.createElement('h3');
+                    heading.className = 'semester-section-heading';
+                    heading.textContent = sem.title;
+                    container.appendChild(heading);
+                }
+
+                const grid = document.createElement('div');
+                grid.className = 'cards-grid';
+
+                list.forEach(c => {
+                    const card = document.createElement('div');
+                    card.className = 'component-card';
+                    card.onclick = () => showComponentDetail(c);
+
+                    card.innerHTML = `
+                        <div class="card-body">
+                            <div class="card-header-row">
+                                <div class="component-icon-box">
+                                    <i class="bi bi-${c.icon}"></i>
+                                </div>
+                                <div class="card-chips">
+                                    <span class="chip-sem">${c.semester}º Semestre</span>
+                                    <span class="chip-hours">${c.hours}h</span>
+                                </div>
+                            </div>
+                            <span class="component-code">${c.code}</span>
+                            <h4 class="component-name">${c.name}</h4>
+
+                            <div class="card-metrics-row">
+                                <div class="metric-cell">
+                                    <span class="metric-val">${c.stats.activities}</span>
+                                    <span class="metric-title">Atividades</span>
+                                </div>
+                                <div class="metric-cell">
+                                    <span class="metric-val">${c.stats.pdfs}</span>
+                                    <span class="metric-title">Apostilas</span>
+                                </div>
+                                <div class="metric-cell">
+                                    <span class="metric-val">${c.stats.files}</span>
+                                    <span class="metric-title">Arquivos</span>
+                                </div>
+                            </div>
+
+                            <div class="card-action-bar">
+                                <span>Ver conteúdos e evidências</span>
+                                <div class="action-arrow">
+                                    <i class="bi bi-arrow-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+
+                container.appendChild(grid);
+            });
+
+            if (renderedTotal === 0 && inlineFilterQuery) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding: 60px 20px; color: var(--text-muted);">
+                        <i class="bi bi-funnel" style="font-size: 40px; color: var(--text-subtle);"></i>
+                        <p style="margin-top: 14px; font-weight: 600;">Nenhuma matéria encontrada com o termo "${inlineFilterQuery}".</p>
+                    </div>
+                `;
+            }
+        }
+
+        function filterSemester(sem, updateUrl = true) {
+            currentSemester = sem;
+            document.querySelectorAll('#semesterTabs .tab-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-sem') === sem);
+            });
+
+            if (updateUrl) {
+                if (sem === 'all') {
+                    history.pushState(null, '', '#/');
+                } else {
+                    history.pushState(null, '', `#/semestre/${sem}`);
+                }
+            }
+
+            navigateToHome(false);
+            renderComponents();
+        }
+
+        function navigateToHome(updateUrl = true) {
+            document.getElementById('homeView').style.display = 'block';
+            document.getElementById('detailView').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (updateUrl) {
+                if (currentSemester === 'all') {
+                    history.pushState(null, '', '#/');
+                } else {
+                    history.pushState(null, '', `#/semestre/${currentSemester}`);
+                }
+            }
+        }
+
+        function showComponentDetail(comp, updateUrl = true) {
+            currentComponent = comp;
+            document.getElementById('homeView').style.display = 'none';
+            const detailView = document.getElementById('detailView');
+            detailView.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (updateUrl) {
+                history.pushState(null, '', `#/materia/${comp.code}`);
+            }
+
+            const header = document.getElementById('detailHeader');
+            header.innerHTML = `
+                <div class="detail-header-info">
+                    <span class="component-code" style="font-size: 13px;">${comp.code}</span>
+                    <h2>${comp.name}</h2>
+                    <div class="detail-tags-row">
+                        <span class="detail-pill-tag"><i class="bi bi-clock-history"></i> Carga Horária: ${comp.hours} horas</span>
+                        <span class="detail-pill-tag"><i class="bi bi-mortarboard"></i> ${comp.semester}º Semestre</span>
+                        <span class="detail-pill-tag"><i class="bi bi-journal-check"></i> ${comp.stats.activities} Atividades</span>
+                        <span class="detail-pill-tag"><i class="bi bi-file-earmark-pdf"></i> ${comp.stats.pdfs} Documentos & PDFs</span>
+                    </div>
+                </div>
+            `;
+
+            const contentsList = document.getElementById('detailContentsList');
+            contentsList.innerHTML = '';
+
+            if (!comp.contents || comp.contents.length === 0) {
+                contentsList.innerHTML = `
+                    <div style="text-align:center; padding: 60px 20px; color: var(--text-muted);">
+                        <i class="bi bi-inbox" style="font-size: 44px; color: var(--text-subtle);"></i>
+                        <p style="margin-top: 12px; font-weight: 500;">Nenhum conteúdo específico postado nesta disciplina ainda.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            comp.contents.forEach((unit, idx) => {
+                const unitEl = document.createElement('div');
+                unitEl.className = 'content-unit';
+
+                let activitiesHtml = '';
+                unit.activities.forEach(act => {
+                    const isWork = act.type.includes('Atividade') || act.type.includes('Trabalho');
+                    const badgeClass = isWork ? 'type-work' : 'type-material';
+
+                    let attachmentsHtml = '';
+                    if (act.attachments && act.attachments.length > 0) {
+                        attachmentsHtml = `
+                            <div class="attachments-grid">
+                                ${act.attachments.map(att => {
+                                    let icon = 'bi-paperclip';
+                                    let pillClass = 'file';
+                                    if (att.type === 'pdf') { icon = 'bi-file-earmark-pdf'; pillClass = 'pdf'; }
+                                    else if (att.type === 'image') { icon = 'bi-image'; pillClass = 'image'; }
+                                    else if (att.type === 'link') { icon = 'bi-link-45deg'; pillClass = 'link'; }
+                                    else if (att.type === 'video') { icon = 'bi-play-circle'; pillClass = 'video'; }
+
+                                    return `
+                                        <button class="attachment-pill-btn ${pillClass}" onclick='openMediaViewer(${JSON.stringify(att)})'>
+                                            <i class="bi ${icon}"></i>
+                                            <span>${escapeHtml(att.title)}</span>
+                                            ${att.is_local ? '<span class="local-badge">Local</span>' : ''}
+                                        </button>
+                                    `;
+                                }).join('')}
+                            </div>
+                        `;
+                    }
+
+                    activitiesHtml += `
+                        <div class="activity-card">
+                            <div class="activity-header">
+                                <div class="activity-title">
+                                    <i class="bi bi-check-circle-fill text-danger" style="font-size:14px;"></i>
+                                    <span>${escapeHtml(act.title)}</span>
+                                </div>
+                                <span class="activity-type-pill ${badgeClass}">${act.type}</span>
+                            </div>
+                            ${act.description ? `<div class="activity-desc">${escapeHtml(act.description)}</div>` : ''}
+                            ${attachmentsHtml}
+                        </div>
+                    `;
+                });
+
+                unitEl.innerHTML = `
+                    <div class="content-unit-header" onclick="toggleUnitAccordion(this)">
+                        <div class="unit-title-group">
+                            <h3><i class="bi bi-folder2-open text-danger"></i> ${escapeHtml(unit.title)}</h3>
+                            <p>${escapeHtml(unit.description || 'Conteúdos didáticos e materiais pedagógicos.')}</p>
+                        </div>
+                        <div class="unit-header-right">
+                            <span class="unit-counter-badge">${unit.activities.length} ${unit.activities.length === 1 ? 'item' : 'itens'}</span>
+                            <i class="bi bi-chevron-down unit-toggle-chevron"></i>
+                        </div>
+                    </div>
+                    <div class="activities-list">
+                        ${activitiesHtml}
+                    </div>
+                `;
+                contentsList.appendChild(unitEl);
+            });
+        }
+
+        // ACORDEÃO INTERATIVO PARA CADA UNIDADE
+        function toggleUnitAccordion(headerEl) {
+            const unitCard = headerEl.closest('.content-unit');
+            unitCard.classList.toggle('collapsed');
+        }
+
+        function updateGlobalStats() {
+            let totalActs = 0;
+            let totalPdfs = 0;
+            window.PORTFOLIO_DATA.forEach(c => {
+                totalActs += c.stats.activities;
+                totalPdfs += c.stats.pdfs;
+            });
+            document.getElementById('statCurricula').textContent = window.PORTFOLIO_DATA.length;
+            document.getElementById('statActivities').textContent = totalActs;
+            document.getElementById('statPdfs').textContent = totalPdfs;
+            document.getElementById('badgeAll').textContent = window.PORTFOLIO_DATA.length;
+        }
+
+        function openSearchModal() {
+            document.getElementById('searchBackdrop').classList.add('show');
+            const input = document.getElementById('globalSearchInput');
+            input.value = '';
+            input.focus();
+            renderSearchResults('');
+        }
+
+        function closeSearchModal() {
+            document.getElementById('searchBackdrop').classList.remove('show');
+        }
+
+        function handleBackdropClick(e) {
+            if (e.target.id === 'searchBackdrop') {
+                closeSearchModal();
+            }
+        }
+
+        function setupKeyboardShortcuts() {
+            window.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+                    e.preventDefault();
+                    openSearchModal();
+                } else if (e.key === 'Escape') {
+                    closeSearchModal();
+                    closeViewer();
+                }
+            });
+        }
+
+        function setupScrollListener() {
+            const btn = document.getElementById('btnScrollTop');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    btn.classList.add('show');
+                } else {
+                    btn.classList.remove('show');
+                }
+            });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        let searchDebounceTimer = null;
+        function handleSearchInput(query) {
+            clearTimeout(searchDebounceTimer);
+            searchDebounceTimer = setTimeout(() => {
+                renderSearchResults(query.trim());
+            }, 150);
+        }
+
+        function setSearchFilter(key, val, btn) {
+            searchFilterType = val;
+            document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            renderSearchResults(document.getElementById('globalSearchInput').value.trim());
+        }
+
+        function renderSearchResults(query) {
+            const container = document.getElementById('searchResults');
+            const normQuery = normalizeStr(query);
+
+            if (!normQuery) {
+                container.innerHTML = `
+                    <div class="search-empty-state">
+                        <i class="bi bi-search"></i>
+                        <p>Busca instantânea em mais de 200 documentos, apostilas PDF e atividades...</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const results = {
+                activities: [],
+                pdfs: [],
+                images: [],
+                links: []
+            };
+
+            window.PORTFOLIO_DATA.forEach(comp => {
+                comp.contents.forEach(unit => {
+                    unit.activities.forEach(act => {
+                        const matchAct = normalizeStr(act.title).includes(normQuery) || 
+                                         normalizeStr(act.description).includes(normQuery) ||
+                                         normalizeStr(comp.name).includes(normQuery) ||
+                                         normalizeStr(unit.title).includes(normQuery);
+
+                        if (matchAct && (searchFilterType === 'all' || searchFilterType === 'activity')) {
+                            results.activities.push({
+                                comp, unit, act,
+                                title: act.title,
+                                subtitle: `${comp.name} • ${comp.semester}º Semestre`,
+                                type: 'activity'
+                            });
+                        }
+
+                        act.attachments.forEach(att => {
+                            const matchAtt = normalizeStr(att.title).includes(normQuery);
+                            if (matchAtt) {
+                                if (att.type === 'pdf' && (searchFilterType === 'all' || searchFilterType === 'pdf')) {
+                                    results.pdfs.push({
+                                        comp, unit, act, att,
+                                        title: att.title,
+                                        subtitle: `Em: ${act.title} (${comp.code})`,
+                                        type: 'pdf'
+                                    });
+                                } else if (att.type === 'image' && (searchFilterType === 'all' || searchFilterType === 'image')) {
+                                    results.images.push({
+                                        comp, unit, act, att,
+                                        title: att.title,
+                                        subtitle: `Em: ${act.title} (${comp.code})`,
+                                        type: 'image'
+                                    });
+                                } else if (searchFilterType === 'all') {
+                                    results.links.push({
+                                        comp, unit, act, att,
+                                        title: att.title,
+                                        subtitle: `Em: ${act.title} (${comp.code})`,
+                                        type: 'link'
+                                    });
+                                }
+                            }
+                        });
+                    });
+                });
+            });
+
+            const total = results.activities.length + results.pdfs.length + results.images.length + results.links.length;
+
+            if (total === 0) {
+                container.innerHTML = `
+                    <div class="search-empty-state">
+                        <i class="bi bi-emoji-neutral"></i>
+                        <p>Nenhum resultado encontrado para "<strong>${escapeHtml(query)}</strong>"</p>
+                        <span style="font-size:12px; color:var(--text-subtle);">Experimente buscar por: "kanban", "marketing", "contrato", "logistica", "financeiro"...</span>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+
+            const appendGroup = (title, items, iconClass, iconName) => {
+                if (items.length === 0) return;
+                html += `<div class="search-group-title">${title} (${items.length})</div>`;
+                items.slice(0, 15).forEach(item => {
+                    html += `
+                        <div class="search-result-item" onclick='handleSearchResultClick(${JSON.stringify({ compCode: item.comp.code, att: item.att || null })})'>
+                            <div class="search-result-main">
+                                <div class="result-icon ${iconClass}">
+                                    <i class="bi ${iconName}"></i>
+                                </div>
+                                <div class="result-texts">
+                                    <span class="result-title">${escapeHtml(item.title)}</span>
+                                    <span class="result-subtitle">${escapeHtml(item.subtitle)}</span>
+                                </div>
+                            </div>
+                            <span class="result-badge">${item.comp.code}</span>
+                        </div>
+                    `;
+                });
+            };
+
+            appendGroup('Apostilas & Documentos PDF', results.pdfs, 'pdf', 'bi-file-earmark-pdf');
+            appendGroup('Atividades Acadêmicas', results.activities, 'act', 'bi-journal-check');
+            appendGroup('Esquemas Visuais & Imagens', results.images, 'image', 'bi-image');
+            appendGroup('Links & Outros Materiais', results.links, 'link', 'bi-link-45deg');
+
+            container.innerHTML = html;
+        }
+
+        function handleSearchResultClick(data) {
+            closeSearchModal();
+            const comp = window.PORTFOLIO_DATA.find(c => c.code === data.compCode);
+            if (comp) {
+                showComponentDetail(comp);
+                if (data.att) {
+                    setTimeout(() => {
+                        openMediaViewer(data.att);
+                    }, 250);
+                }
+            }
+        }
+
+        function openMediaViewer(att) {
+            const backdrop = document.getElementById('viewerBackdrop');
+            const titleEl = document.getElementById('viewerTitle');
+            const bodyEl = document.getElementById('viewerBody');
+            const dlBtn = document.getElementById('viewerDownloadBtn');
+            const extBtn = document.getElementById('viewerExternalBtn');
+
+            titleEl.innerHTML = `<i class="bi ${att.type === 'pdf' ? 'bi-file-earmark-pdf text-danger' : (att.type === 'image' ? 'bi-image text-success' : 'bi-link-45deg')}"></i> <span>${escapeHtml(att.title)}</span>`;
+            
+            dlBtn.href = att.download_url || att.url;
+            extBtn.href = att.preview_url || att.url;
+
+            if (att.type === 'pdf') {
+                bodyEl.innerHTML = `<iframe src="${att.preview_url}"></iframe>`;
+            } else if (att.type === 'image') {
+                bodyEl.innerHTML = `<img src="${att.preview_url}" alt="${escapeHtml(att.title)}">`;
+            } else {
+                window.open(att.url, '_blank');
+                return;
+            }
+
+            backdrop.classList.add('show');
+        }
+
+        function closeViewer() {
+            document.getElementById('viewerBackdrop').classList.remove('show');
+            document.getElementById('viewerBody').innerHTML = '';
+        }
+
+        function handleViewerBackdropClick(e) {
+            if (e.target.id === 'viewerBackdrop') {
+                closeViewer();
+            }
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return String(text)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>

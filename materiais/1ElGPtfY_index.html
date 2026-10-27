@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tabela Periódica da Logística</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --c-bg: #f5f3ef;
+  --c-surface: #ffffff;
+  --c-dark: #0f0e0c;
+  --c-mid: #6b6560;
+  --c-faint: #e8e5e0;
+
+  --g1: #1a1a2e; /* tempo - deep navy */
+  --g2: #0f5c3a; /* suprimentos - forest */
+  --g3: #8B4513; /* estoque - warm brown */
+  --g4: #8B1A1A; /* transporte - deep red */
+  --g5: #1a3a5c; /* sistemas - ocean */
+  --g6: #2d4a1e; /* planejamento - dark green */
+  --g7: #3d1a5c; /* servico - plum */
+
+  --g1-light: #e8e8f5;
+  --g2-light: #e6f2ec;
+  --g3-light: #f5ede6;
+  --g4-light: #f5e6e6;
+  --g5-light: #e6edf5;
+  --g6-light: #eaf0e6;
+  --g7-light: #ede6f5;
+
+  --g1-acc: #4f46e5;
+  --g2-acc: #10b981;
+  --g3-acc: #f59e0b;
+  --g4-acc: #ef4444;
+  --g5-acc: #3b82f6;
+  --g6-acc: #22c55e;
+  --g7-acc: #a855f7;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--c-bg);
+  color: var(--c-dark);
+  font-family: 'Outfit', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ── HEADER ── */
+.hero {
+  background: var(--c-dark);
+  color: white;
+  padding: 5rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 20% 50%, rgba(79,70,229,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 80% 30%, rgba(16,185,129,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 50% at 60% 80%, rgba(245,158,11,0.10) 0%, transparent 60%);
+}
+
+.hero-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.hero-inner {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 3rem;
+}
+
+.hero-text {}
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 32px; height: 1px;
+  background: rgba(255,255,255,0.3);
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.4rem;
+}
+
+.hero h1 em {
+  font-style: italic;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.5);
+  margin-top: 1rem;
+  font-weight: 300;
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+.hero-stat {
+  text-align: center;
+}
+
+.hero-stat .val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fbbf24;
+  line-height: 1;
+}
+
+.hero-stat .lbl {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.4);
+  margin-top: 0.25rem;
+}
+
+.hero-progress-area {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 1.5rem;
+  min-width: 200px;
+  text-align: center;
+}
+
+.hero-progress-area .p-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 0.8rem;
+}
+
+.radial-progress {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 0.8rem;
+  position: relative;
+}
+
+.radial-progress svg {
+  transform: rotate(-90deg);
+}
+
+.radial-progress .bg { fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 6; }
+.radial-progress .fg { fill: none; stroke: #fbbf24; stroke-width: 6; stroke-linecap: round; stroke-dasharray: 283; stroke-dashoffset: 283; transition: stroke-dashoffset 0.6s ease; }
+.radial-progress .center-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+}
+.radial-progress .pct { font-size: 1.4rem; font-weight: 700; color: white; }
+.radial-progress .pct-lbl { font-size: 0.5rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; }
+
+.progress-note { font-size: 0.7rem; color: rgba(255,255,255,0.4); }
+
+/* ── NAV TABS ── */
+.nav-tabs {
+  background: var(--c-surface);
+  border-bottom: 1px solid var(--c-faint);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+}
+
+.nav-tabs-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 2rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-tabs-inner::-webkit-scrollbar { display: none; }
+
+.nav-tab {
+  padding: 1rem 1.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--c-mid);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.nav-tab:hover { color: var(--c-dark); }
+.nav-tab.active { color: var(--c-dark); border-bottom-color: var(--c-dark); }
+
+/* ── SECTIONS ── */
+.section { display: none; }
+.section.active { display: block; }
+
+/* ── TABELA SECTION ── */
+.table-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.section-desc {
+  color: var(--c-mid);
+  font-size: 0.9rem;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+
+/* Group legend */
+.group-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.gl-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 100px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 1.5px solid;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.gl-chip .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+/* Periodic grid */
+.pt-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0.6rem;
+}
+
+.pt-cell {
+  aspect-ratio: 0.85;
+  border-radius: 12px;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.5rem 0.3rem;
+  border: 1.5px solid transparent;
+  transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease, opacity 0.3s;
+  background: white;
+  overflow: hidden;
+  user-select: none;
+}
+
+.pt-cell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.pt-cell:hover {
+  transform: translateY(-6px) scale(1.06);
+  z-index: 10;
+}
+
+.pt-cell:hover::after { opacity: 1; }
+
+.pt-cell.visited::before {
+  content: '✓';
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  font-size: 0.55rem;
+  font-weight: 700;
+  opacity: 0.6;
+}
+
+.pt-cell .c-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  position: absolute;
+  top: 5px;
+  left: 7px;
+  opacity: 0.5;
+}
+
+.pt-cell .c-sym {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  line-height: 1;
+  margin-bottom: 0.2rem;
+}
+
+.pt-cell .c-name {
+  font-size: clamp(0.38rem, 0.8vw, 0.55rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  opacity: 0.7;
+}
+
+.pt-cell.dim { opacity: 0.25; pointer-events: none; }
+.pt-cell.empty { background: transparent; cursor: default; }
+
+/* Group color tokens */
+.g1 { background: var(--g1-light); border-color: rgba(79,70,229,0.2); }
+.g1 .c-sym { color: var(--g1-acc); }
+.g1:hover { border-color: var(--g1-acc); box-shadow: 0 16px 48px rgba(79,70,229,0.2); }
+.g1.visited::before { color: var(--g1-acc); }
+
+.g2 { background: var(--g2-light); border-color: rgba(16,185,129,0.2); }
+.g2 .c-sym { color: var(--g2-acc); }
+.g2:hover { border-color: var(--g2-acc); box-shadow: 0 16px 48px rgba(16,185,129,0.2); }
+.g2.visited::before { color: var(--g2-acc); }
+
+.g3 { background: var(--g3-light); border-color: rgba(245,158,11,0.2); }
+.g3 .c-sym { color: var(--g3-acc); }
+.g3:hover { border-color: var(--g3-acc); box-shadow: 0 16px 48px rgba(245,158,11,0.2); }
+.g3.visited::before { color: var(--g3-acc); }
+
+.g4 { background: var(--g4-light); border-color: rgba(239,68,68,0.2); }
+.g4 .c-sym { color: var(--g4-acc); }
+.g4:hover { border-color: var(--g4-acc); box-shadow: 0 16px 48px rgba(239,68,68,0.2); }
+.g4.visited::before { color: var(--g4-acc); }
+
+.g5 { background: var(--g5-light); border-color: rgba(59,130,246,0.2); }
+.g5 .c-sym { color: var(--g5-acc); }
+.g5:hover { border-color: var(--g5-acc); box-shadow: 0 16px 48px rgba(59,130,246,0.2); }
+.g5.visited::before { color: var(--g5-acc); }
+
+.g6 { background: var(--g6-light); border-color: rgba(34,197,94,0.2); }
+.g6 .c-sym { color: var(--g6-acc); }
+.g6:hover { border-color: var(--g6-acc); box-shadow: 0 16px 48px rgba(34,197,94,0.2); }
+.g6.visited::before { color: var(--g6-acc); }
+
+.g7 { background: var(--g7-light); border-color: rgba(168,85,247,0.2); }
+.g7 .c-sym { color: var(--g7-acc); }
+.g7:hover { border-color: var(--g7-acc); box-shadow: 0 16px 48px rgba(168,85,247,0.2); }
+.g7.visited::before { color: var(--g7-acc); }
+
+/* ── MODAL ── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15,14,12,0.7);
+  backdrop-filter: blur(16px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.overlay.show { opacity: 1; pointer-events: all; }
+
+.modal {
+  background: white;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 680px;
+  max-height: 92vh;
+  overflow-y: auto;
+  position: relative;
+  transform: scale(0.9) translateY(40px);
+  transition: transform 0.35s cubic-bezier(0.34,1.4,0.64,1);
+}
+
+.overlay.show .modal { transform: scale(1) translateY(0); }
+
+.modal-band {
+  height: 8px;
+  border-radius: 24px 24px 0 0;
+}
+
+.modal-body { padding: 2rem 2.5rem 2.5rem; }
+
+.modal-top {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.modal-icon {
+  width: 90px;
+  height: 90px;
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  border: 2px solid;
+}
+
+.modal-icon .i-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  position: absolute;
+  top: 7px;
+  left: 9px;
+  opacity: 0.5;
+}
+
+.modal-icon .i-sym {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 900;
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.modal-info { flex: 1; }
+
+.modal-group-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  opacity: 0.5;
+  margin-bottom: 0.3rem;
+}
+
+.modal-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.9rem;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 0.3rem;
+}
+
+.modal-full-name {
+  font-size: 0.82rem;
+  opacity: 0.55;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1.5px solid var(--c-faint);
+  background: var(--c-bg);
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-mid);
+  transition: all 0.2s;
+}
+.modal-close:hover { background: var(--c-dark); color: white; border-color: var(--c-dark); }
+
+/* Modal tabs */
+.modal-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1.5px solid var(--c-faint);
+  margin-bottom: 1.5rem;
+}
+
+.modal-tab {
+  padding: 0.6rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--c-mid);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1.5px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.modal-tab:hover { color: var(--c-dark); }
+.modal-tab.active { color: var(--c-dark); border-bottom-color: var(--c-dark); }
+
+.modal-panel { display: none; }
+.modal-panel.active { display: block; animation: fadeIn 0.3s ease; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.def-text {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #374151;
+  font-weight: 300;
+}
+
+.example-card {
+  border-radius: 14px;
+  padding: 1.5rem;
+  margin-top: 1.2rem;
+  border: 1.5px solid;
+  position: relative;
+  overflow: hidden;
+}
+
+.example-card::before {
+  content: '💡';
+  position: absolute;
+  top: -10px;
+  right: -8px;
+  font-size: 4rem;
+  opacity: 0.06;
+}
+
+.example-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  opacity: 0.6;
+}
+
+.example-text {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: #374151;
+  font-weight: 400;
+}
+
+.example-text strong { font-weight: 700; }
+
+.keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1.2rem;
+}
+
+.keyword {
+  padding: 0.3rem 0.8rem;
+  border-radius: 100px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border: 1.5px solid;
+}
+
+/* Connections */
+.connections-list { display: flex; flex-direction: column; gap: 0.7rem; }
+.conn-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  background: var(--c-bg);
+  border: 1px solid var(--c-faint);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.conn-item:hover { border-color: currentColor; }
+.conn-sym { font-weight: 800; font-size: 1rem; width: 44px; text-align: center; }
+.conn-info { flex: 1; }
+.conn-name { font-size: 0.82rem; font-weight: 600; }
+.conn-rel { font-size: 0.72rem; color: var(--c-mid); margin-top: 0.1rem; }
+.conn-arrow { font-size: 0.8rem; opacity: 0.35; }
+
+/* ── GLOSSÁRIO SECTION ── */
+.gloss-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+.gloss-search-wrap {
+  position: relative;
+  margin-bottom: 2rem;
+  max-width: 500px;
+}
+
+.gloss-search {
+  width: 100%;
+  padding: 0.9rem 1rem 0.9rem 3rem;
+  border: 2px solid var(--c-faint);
+  border-radius: 12px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem;
+  background: white;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.gloss-search:focus { border-color: var(--c-dark); }
+.gloss-search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--c-mid);
+  font-size: 1rem;
+}
+
+.gloss-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.gloss-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1.5px solid var(--c-faint);
+  cursor: pointer;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.gloss-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+}
+
+.gloss-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.gloss-sym {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  border: 1.5px solid;
+}
+
+.gloss-card-meta {}
+.gloss-card-name { font-weight: 700; font-size: 0.95rem; }
+.gloss-card-full { font-size: 0.72rem; color: var(--c-mid); margin-top: 0.1rem; }
+
+.gloss-card-def {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: #4b5563;
+  font-weight: 300;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.gloss-stripe {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: 16px 0 0 16px;
+}
+
+/* ── QUIZ SECTION ── */
+.quiz-section {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+.quiz-start-screen { text-align: center; padding: 4rem 2rem; }
+.quiz-start-screen h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; margin-bottom: 1rem; }
+.quiz-start-screen p { color: var(--c-mid); font-size: 0.95rem; margin-bottom: 2.5rem; font-weight: 300; line-height: 1.7; }
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 2rem;
+  background: var(--c-dark);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.03em;
+}
+.btn-primary:hover { background: #1a1a3e; transform: translateY(-2px); }
+
+.quiz-progress-bar {
+  height: 4px;
+  background: var(--c-faint);
+  border-radius: 100px;
+  margin-bottom: 2.5rem;
+  overflow: hidden;
+}
+.quiz-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4f46e5, #10b981);
+  border-radius: 100px;
+  transition: width 0.4s ease;
+}
+
+.quiz-q-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--c-mid);
+  margin-bottom: 1.2rem;
+}
+
+.quiz-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem;
+  border: 1.5px solid var(--c-faint);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+.quiz-question {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 2rem;
+  color: var(--c-dark);
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.quiz-option {
+  padding: 1rem 1.2rem;
+  border: 2px solid var(--c-faint);
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  background: white;
+  text-align: left;
+  font-family: 'Outfit', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.quiz-option .opt-letter {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--c-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.quiz-option:hover { border-color: var(--c-dark); background: var(--c-bg); }
+.quiz-option:hover .opt-letter { background: var(--c-dark); color: white; }
+.quiz-option.correct { border-color: #10b981; background: #f0fdf4; color: #065f46; }
+.quiz-option.correct .opt-letter { background: #10b981; color: white; }
+.quiz-option.wrong { border-color: #ef4444; background: #fff1f2; color: #991b1b; }
+.quiz-option.wrong .opt-letter { background: #ef4444; color: white; }
+.quiz-option.disabled { cursor: default; }
+
+.quiz-feedback {
+  margin-top: 1.5rem;
+  padding: 1.2rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  display: none;
+}
+.quiz-feedback.show { display: block; animation: fadeIn 0.3s ease; }
+.quiz-feedback.ok { background: #f0fdf4; border: 1px solid #a7f3d0; color: #065f46; }
+.quiz-feedback.err { background: #fff1f2; border: 1px solid #fecaca; color: #991b1b; }
+
+.quiz-next-btn {
+  margin-top: 1.5rem;
+  display: none;
+  width: 100%;
+  padding: 1rem;
+  background: var(--c-dark);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.quiz-next-btn.show { display: block; animation: fadeIn 0.3s ease; }
+.quiz-next-btn:hover { background: #1a1a3e; }
+
+/* Result */
+.quiz-result {
+  text-align: center;
+  padding: 2rem;
+  display: none;
+}
+.quiz-result.show { display: block; }
+.result-score-ring {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 1.5rem;
+  position: relative;
+}
+.result-score-ring svg { transform: rotate(-90deg); }
+.result-score-ring .rb { fill: none; stroke: var(--c-faint); stroke-width: 10; }
+.result-score-ring .rf { fill: none; stroke-width: 10; stroke-linecap: round; stroke-dasharray: 377; transition: stroke-dashoffset 1s ease; }
+.result-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.result-pct { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; }
+.result-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; margin-bottom: 0.5rem; }
+.result-sub { color: var(--c-mid); font-size: 0.9rem; margin-bottom: 2rem; font-weight: 300; }
+.result-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn-secondary {
+  padding: 0.8rem 1.6rem;
+  border: 2px solid var(--c-dark);
+  border-radius: 12px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: transparent;
+  transition: all 0.2s;
+}
+.btn-secondary:hover { background: var(--c-dark); color: white; }
+
+/* ── STAGGER ANIMS ── */
+.pt-cell {
+  opacity: 0;
+  animation: cellIn 0.4s ease forwards;
+}
+@keyframes cellIn {
+  from { opacity: 0; transform: scale(0.8) translateY(12px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* scrollbar */
+.modal::-webkit-scrollbar { width: 4px; }
+.modal::-webkit-scrollbar-track { background: transparent; }
+.modal::-webkit-scrollbar-thumb { background: var(--c-faint); border-radius: 4px; }
+
+@media (max-width: 768px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-progress-area { display: none; }
+  .pt-grid { grid-template-columns: repeat(8, 1fr); gap: 0.3rem; }
+  .pt-cell { border-radius: 8px; }
+  .pt-cell .c-sym { font-size: 0.95rem; }
+  .pt-cell .c-name { font-size: 0.32rem; }
+  .modal-body { padding: 1.5rem; }
+  .modal-title { font-size: 1.4rem; }
+  .gloss-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">Guia Interativo Completo</div>
+      <h1>Tabela Periódica<br>da <em>Logística</em></h1>
+      <p class="hero-sub">23 elementos essenciais que todo profissional de supply chain precisa dominar. Clique em qualquer elemento para aprender em profundidade.</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="val">23</div><div class="lbl">Elementos</div></div>
+        <div class="hero-stat"><div class="val">7</div><div class="lbl">Grupos</div></div>
+        <div class="hero-stat"><div class="val" id="visited-count">0</div><div class="lbl">Explorados</div></div>
+      </div>
+    </div>
+    <div class="hero-progress-area">
+      <div class="p-label">Seu progresso</div>
+      <div class="radial-progress">
+        <svg width="100" height="100" viewBox="0 0 100 100">
+          <circle class="bg" cx="50" cy="50" r="45"/>
+          <circle class="fg" id="radial-fg" cx="50" cy="50" r="45"/>
+        </svg>
+        <div class="center-text">
+          <span class="pct" id="radial-pct">0%</span>
+          <span class="pct-lbl">completo</span>
+        </div>
+      </div>
+      <div class="progress-note">Explore todos os elementos</div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-tabs">
+  <div class="nav-tabs-inner">
+    <div class="nav-tab active" onclick="switchTab('tabela',this)">📊 Tabela Periódica</div>
+    <div class="nav-tab" onclick="switchTab('glossario',this)">📖 Glossário</div>
+    <div class="nav-tab" onclick="switchTab('quiz',this)">🎯 Quiz</div>
+  </div>
+</div>
+
+<!-- TABELA SECTION -->
+<div class="section active" id="sec-tabela">
+  <div class="table-section">
+    <h2 class="section-title">Tabela Periódica</h2>
+    <p class="section-desc">Clique em qualquer elemento para ver definição, exemplo prático e conexões.</p>
+
+    <div class="group-legend" id="group-legend"></div>
+    <div class="pt-grid" id="pt-grid"></div>
+  </div>
+</div>
+
+<!-- GLOSSÁRIO SECTION -->
+<div class="section" id="sec-glossario">
+  <div class="gloss-section">
+    <h2 class="section-title">Glossário Completo</h2>
+    <p class="section-desc">Todos os termos em ordem alfabética com definições detalhadas.</p>
+    <div class="gloss-search-wrap">
+      <span class="gloss-search-icon">🔍</span>
+      <input type="text" class="gloss-search" placeholder="Buscar termo..." oninput="filterGloss(this.value)" id="gloss-input">
+    </div>
+    <div class="gloss-grid" id="gloss-grid"></div>
+  </div>
+</div>
+
+<!-- QUIZ SECTION -->
+<div class="section" id="sec-quiz">
+  <div class="quiz-section">
+    <div class="quiz-start-screen" id="quiz-start">
+      <h2>Teste seu Conhecimento</h2>
+      <p>10 perguntas sobre os elementos da Tabela Periódica da Logística. Veja se você está pronto para o mercado!</p>
+      <button class="btn-primary" onclick="startQuiz()">▶ Iniciar Quiz</button>
+    </div>
+
+    <div id="quiz-game" style="display:none">
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="q-pbar" style="width:0%"></div></div>
+      <div class="quiz-q-num" id="q-num"></div>
+      <div class="quiz-card">
+        <div class="quiz-question" id="q-question"></div>
+        <div class="quiz-options" id="q-options"></div>
+        <div class="quiz-feedback" id="q-feedback"></div>
+        <button class="quiz-next-btn" id="q-next" onclick="nextQuestion()">Próxima →</button>
+      </div>
+    </div>
+
+    <div class="quiz-card quiz-result" id="quiz-result">
+      <div class="result-score-ring">
+        <svg width="140" height="140" viewBox="0 0 140 140">
+          <circle class="rb" cx="70" cy="70" r="60"/>
+          <circle class="rf" id="result-ring" cx="70" cy="70" r="60"/>
+        </svg>
+        <div class="result-center">
+          <span class="result-pct" id="result-pct"></span>
+        </div>
+      </div>
+      <h2 class="result-title" id="result-title"></h2>
+      <p class="result-sub" id="result-sub"></p>
+      <div class="result-actions">
+        <button class="btn-secondary" onclick="startQuiz()">↺ Tentar Novamente</button>
+        <button class="btn-primary" onclick="switchTab('tabela', document.querySelector('.nav-tab'))">📊 Ver Tabela</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="closeOverlay(event)">
+  <div class="modal" id="modal">
+    <div class="modal-band" id="m-band"></div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-body">
+      <div class="modal-top">
+        <div class="modal-icon" id="m-icon">
+          <span class="i-num" id="m-num"></span>
+          <span class="i-sym" id="m-sym"></span>
+        </div>
+        <div class="modal-info">
+          <div class="modal-group-label" id="m-glabel"></div>
+          <div class="modal-title" id="m-title"></div>
+          <div class="modal-full-name" id="m-full"></div>
+        </div>
+      </div>
+
+      <div class="modal-tabs">
+        <div class="modal-tab active" onclick="switchModalTab('def',this)">Definição</div>
+        <div class="modal-tab" onclick="switchModalTab('ex',this)">Exemplo Real</div>
+        <div class="modal-tab" onclick="switchModalTab('conn',this)">Conexões</div>
+      </div>
+
+      <div class="modal-panel active" id="mp-def">
+        <p class="def-text" id="m-def"></p>
+        <div class="keywords" id="m-kw"></div>
+      </div>
+
+      <div class="modal-panel" id="mp-ex">
+        <div class="example-card" id="m-ex-card">
+          <div class="example-label">Exemplo Prático</div>
+          <p class="example-text" id="m-ex"></p>
+        </div>
+      </div>
+
+      <div class="modal-panel" id="mp-conn">
+        <p style="font-size:0.82rem;color:var(--c-mid);margin-bottom:1rem;font-weight:300;">Elementos relacionados — clique para explorar</p>
+        <div class="connections-list" id="m-conn"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── DATA ──
+const GROUPS = {
+  g1: { name: 'Tempo',         acc: '#4f46e5', light: '#e8e8f5', label: 'Grupo 1 — Tempo' },
+  g2: { name: 'Suprimentos',   acc: '#10b981', light: '#e6f2ec', label: 'Grupo 2 — Suprimentos' },
+  g3: { name: 'Estoque',       acc: '#f59e0b', light: '#fef9e7', label: 'Grupo 3 — Estoque' },
+  g4: { name: 'Transporte',    acc: '#ef4444', light: '#fff1f2', label: 'Grupo 4 — Transporte' },
+  g5: { name: 'Sistemas',      acc: '#3b82f6', light: '#eff6ff', label: 'Grupo 5 — Sistemas' },
+  g6: { name: 'Planejamento',  acc: '#22c55e', light: '#f0fdf4', label: 'Grupo 6 — Planejamento' },
+  g7: { name: 'Serviço',       acc: '#a855f7', light: '#faf5ff', label: 'Grupo 7 — Serviço' },
+};
+
+const ELEMENTS = [
+  // col, row, num, sym, name, group, full, def, ex, tags, related[]
+  { c:1,r:1, num:1,  sym:'LT',         name:'Lead Time',              g:'g1',
+    full:'Tempo Total de um Processo',
+    def:'Lead Time é o tempo total decorrido desde o início de um processo logístico até a sua conclusão completa. Engloba todas as etapas intermediárias: emissão do pedido, processamento, produção ou separação, transporte e entrega ao cliente final. É um dos indicadores mais críticos de eficiência operacional.',
+    ex:'Uma farmácia online recebe um pedido às 10h. O medicamento é separado às 11h, embalado às 11:30h, coletado pela transportadora às 13h e entregue ao cliente às 18h. O Lead Time total é de <strong>8 horas</strong> — cada etapa contribui para o resultado final.',
+    tags:['Tempo de ciclo','Prazo','Eficiência','Processo'],
+    rel:['OTIF','SLA','TMS'] },
+
+  { c:1,r:2, num:8,  sym:'JIT',        name:'Just in Time',           g:'g2',
+    full:'Produção e Entrega Sob Demanda',
+    def:'Filosofia de produção e gestão de estoques desenvolvida pela Toyota onde os materiais e produtos são adquiridos ou fabricados apenas no momento exato em que são necessários. Elimina estoques intermediários, reduz desperdícios e exige uma cadeia de suprimentos altamente coordenada e confiável.',
+    ex:'A <strong>Toyota</strong> só fabrica um veículo após receber um pedido confirmado. As peças chegam à linha de montagem em janelas de tempo precisas de 2 horas. Um banco de traseiro chega exatamente quando aquele carro específico chega naquele ponto da linha — sem armazéns intermediários.',
+    tags:['Toyota','Lean','Desperdício zero','Produção puxada'],
+    rel:['SC','VMI','WMS','Backorder'] },
+
+  { c:1,r:3, num:16, sym:'SLA',        name:'Service Level Agreement', g:'g7',
+    full:'Acordo de Nível de Serviço',
+    def:'Contrato formal que estabelece os padrões mínimos de qualidade, prazo e desempenho acordados entre prestador de serviço e cliente. Define responsabilidades, métricas de medição, penalidades por descumprimento e incentivos por superação. É a base contratual que transforma expectativas em compromissos mensuráveis.',
+    ex:'O Mercado Livre exige de seus sellers um SLA de resposta ao cliente em até <strong>24 horas</strong> e despacho em até <strong>48 horas</strong>. Se o seller descumpre, recebe restrições no ranking de busca. Se supera consistentemente, ganha o selo "Full" com entregas prioritárias.',
+    tags:['Contrato','Penalidade','Qualidade','Compromisso'],
+    rel:['LT','OTIF','KPI'] },
+
+  { c:2,r:2, num:2,  sym:'SC',         name:'Supply Chain',            g:'g2',
+    full:'Cadeia de Suprimentos',
+    def:'Rede completa e integrada de organizações, recursos, atividades, tecnologias e pessoas envolvidas na criação e comercialização de um produto ou serviço. Vai desde a extração da matéria-prima até o descarte pelo consumidor final. A gestão eficiente da SC é diferencial competitivo decisivo.',
+    ex:'O café que você bebe de manhã: <strong>fazenda cafeeira no Cerrado</strong> → cooperativa de beneficiamento → torrefadora em São Paulo → centro de distribuição → rede de supermercados → gôndola → sua xícara. Cada elo tem estoque, prazo, custo e risco próprios.',
+    tags:['Rede','Fornecedores','Elos','Colaboração'],
+    rel:['JIT','VMI','ERP','TMS'] },
+
+  { c:2,r:3, num:9,  sym:'VMI',        name:'Vendor Managed Inventory', g:'g2',
+    full:'Gestão de Estoque pelo Fornecedor',
+    def:'Modelo de parceria onde o fornecedor assume a responsabilidade de monitorar e repor o estoque do cliente com base em dados de consumo compartilhados em tempo real. Elimina o processo de emissão de pedidos pelo comprador e reduz rupturas e excessos de estoque simultaneamente.',
+    ex:'A <strong>Ambev</strong> monitora via sistema integrado o estoque de produtos nos pontos de venda parceiros. Quando o estoque de Brahma 600ml em um bar atinge o nível mínimo configurado, o sistema já agenda automaticamente a entrega — o dono do bar não precisa ligar ou enviar pedido.',
+    tags:['Reposição automática','Parceria','Dados','Estoque'],
+    rel:['SC','JIT','WMS','ERP'] },
+
+  { c:3,r:2, num:3,  sym:'CD',         name:'Centro de Distribuição',  g:'g3',
+    full:'Centro de Distribuição Logístico',
+    def:'Instalação estrategicamente posicionada que recebe mercadorias de fornecedores ou fábricas, realiza operações de armazenagem, separação, consolidação e expedição para pontos de venda ou clientes finais. Atua como hub da rede logística, otimizando custos de transporte e tempo de entrega.',
+    ex:'O <strong>CD do Mercado Livre em Cajamar (SP)</strong> tem 93.000 m². Recebe produtos de milhares de sellers, organiza por região e modalidade de entrega. Um pedido feito às 23h pode ser entregue no dia seguinte antes do meio-dia — só possível com a infraestrutura do CD.',
+    tags:['Armazém','Hub','Expedição','Infraestrutura'],
+    rel:['WMS','CrossDocking','TMS','FIFO'] },
+
+  { c:3,r:3, num:10, sym:'WMS',        name:'Warehouse Management',    g:'g5',
+    full:'Sistema de Gestão de Armazém',
+    def:'Software especializado que planeja, controla e otimiza todas as operações dentro de um armazém ou CD. Gerencia recebimento, endereçamento, picking, packing, expedição, inventário e devoluções. Integrado com ERP e TMS, garante visibilidade total do estoque em tempo real.',
+    ex:'No armazém da <strong>Amazon</strong>, o WMS direciona o operador via coletor de dados: "Vá ao corredor B, prateleira 4, posição 12 — colete 1 unidade do item X". Indica a rota mais eficiente, evitando cruzamentos. Taxa de erro: <strong>menos de 0,1%</strong> em milhões de pedidos diários.',
+    tags:['Software','Endereçamento','Operação','Inventário'],
+    rel:['CD','ERP','TMS','Picking'] },
+
+  { c:4,r:2, num:4,  sym:'SKU',        name:'Stock Keeping Unit',      g:'g3',
+    full:'Unidade de Manutenção de Estoque',
+    def:'Código alfanumérico único que identifica cada variação específica de produto no estoque. Uma mesma camiseta em três cores e cinco tamanhos gera 15 SKUs diferentes. Permite gestão granular de estoque, análise de demanda por variação e precificação diferenciada.',
+    ex:'A <strong>Nike</strong> tem mais de 30.000 SKUs ativos no Brasil. Um tênis Air Max 270 nas cores Branco, Preto, Azul e Vermelho, nos tamanhos 38 ao 46 = <strong>36 SKUs</strong> só desse modelo. Sem controle por SKU, é impossível saber que o preto 42 está em falta mas o azul 42 tem excesso.',
+    tags:['Código','Variação','Produto','Rastreamento'],
+    rel:['WMS','FIFO','Picking','ERP'] },
+
+  { c:4,r:3, num:11, sym:'Picking',    name:'Separação de Pedidos',    g:'g3',
+    full:'Coleta e Separação de Itens do Pedido',
+    def:'Processo de localizar e coletar fisicamente os itens de um pedido dentro do armazém. Representa entre 50% e 60% do custo operacional de um armazém. Existem diferentes métodos: por pedido, por lote, por zona, e por wave. A escolha impacta diretamente produtividade e acuracidade.',
+    ex:'Em um CD de e-commerce com <strong>picking por wave</strong>: o sistema agrupa 200 pedidos similares, o operador faz um único percurso coletando múltiplos itens para múltiplos pedidos, depois o sorter distribui para cada caixa. <strong>4x mais eficiente</strong> que separar pedido por pedido.',
+    tags:['Separação','Acuracidade','Produtividade','Operação'],
+    rel:['WMS','CD','Packing','SKU'] },
+
+  { c:5,r:2, num:5,  sym:'FIFO',       name:'First In, First Out',     g:'g3',
+    full:'Primeiro que Entra, Primeiro que Sai',
+    def:'Método de gestão de estoques onde os primeiros produtos recebidos são os primeiros a ser expedidos. Fundamental para qualquer produto com data de validade, mas também relevante para gerenciar obsolescência tecnológica e depreciation de valor. Evita perdas por vencimento e melhora a qualidade percebida.',
+    ex:'No CD de um grande laticínio, as <strong>caixas de queijo mussarela</strong> chegam na segunda e são empilhadas atrás das que chegaram na sexta anterior. O WMS bloqueia automaticamente a expedição das mais novas enquanto há as mais antigas disponíveis — garantindo validade ao cliente.',
+    tags:['Validade','Rotatividade','PVPS','Perecíveis'],
+    rel:['LIFO','WMS','CD','SKU'] },
+
+  { c:5,r:3, num:12, sym:'Packing',    name:'Embalagem para Envio',    g:'g3',
+    full:'Embalagem e Preparação para Expedição',
+    def:'Processo de embalar, proteger e rotular os produtos coletados no picking para transporte e entrega. Envolve escolha do tipo de embalagem, materiais de proteção, impressão de etiquetas, conferência do pedido e pesagem. Uma embalagem inadequada é a principal causa de avarias e insatisfação do cliente.',
+    ex:'Um estudo da <strong>Shopee Brasil</strong> mostrou que embalar corretamente reduz em <strong>73% as reclamações</strong> por avaria. Produto frágil em caixa apertada sem amortecimento versus produto com bubble wrap, caixa com folga e fita dupla = diferença entre 5 estrelas e devolução.',
+    tags:['Proteção','Avaria','Expedição','Qualidade'],
+    rel:['Picking','CD','TMS','WMS'] },
+
+  { c:6,r:2, num:6,  sym:'LIFO',       name:'Last In, First Out',      g:'g3',
+    full:'Último que Entra, Primeiro que Sai',
+    def:'Método onde os produtos recebidos mais recentemente são os primeiros a ser expedidos. Fisicamente comum em operações com pilhas (o último colocado fica no topo). Em contextos de alta inflação, o LIFO como método contábil reduz o lucro tributável pois atribui custos mais altos ao CMV.',
+    ex:'Em uma <strong>siderúrgica</strong> que empilha toneladas de chapas de aço no pátio, a última chapa colocada no topo é fisicamente a primeira a ser retirada pela empilhadeira. Não há praticidade em retirar do fundo da pilha. O estoque mais antigo fica "enterrado" na base.',
+    tags:['Contabilidade','CMV','Não-perecíveis','UEPS'],
+    rel:['FIFO','WMS','CD','ERP'] },
+
+  { c:6,r:3, num:13, sym:'Back\nOrder', name:'Pedido em Atraso',       g:'g3',
+    full:'Pedido com Produto Indisponível em Estoque',
+    def:'Situação em que um pedido do cliente é aceito mas não pode ser atendido imediatamente por indisponibilidade temporária de estoque. O pedido fica em fila aguardando reposição. Estratégia que preserva a venda mas exige comunicação transparente e prazo confiável de entrega.',
+    ex:'Durante o lançamento do <strong>iPhone 15</strong>, muitas lojas aceitavam pré-vendas com prazo de 30 dias — produto sem estoque, pedido confirmado. O cliente aceitava o backorder pela exclusividade. O risco: se a Apple atrasasse o fornecimento, toda a cadeia enfrentaria cancelamentos.',
+    tags:['Ruptura','Pré-venda','Reposição','Demanda'],
+    rel:['JIT','VMI','ERP','SC'] },
+
+  { c:7,r:2, num:7,  sym:'TMS',        name:'Transportation Mgmt',     g:'g5',
+    full:'Sistema de Gerenciamento de Transporte',
+    def:'Plataforma tecnológica que planeja, executa e otimiza o transporte de cargas: roteirização inteligente, seleção de transportadoras por custo e prazo, rastreamento em tempo real, gestão de ocorrências, documentação fiscal (CTe, MDFe) e análise de desempenho por rota e modal.',
+    ex:'O <strong>TMS da Magazine Luiza</strong> recebe um pedido para Manaus e em milissegundos compara: aéreo (R$80, 2 dias) vs marítimo + rodoviário (R$35, 8 dias). Considera o prazo prometido ao cliente, a margem do produto e as regras de negócio — e seleciona automaticamente a melhor opção.',
+    tags:['Roteirização','Frete','CTe','Rastreamento'],
+    rel:['ERP','WMS','SC','LT'] },
+
+  { c:7,r:3, num:14, sym:'ERP',        name:'Enterprise Resource Planning', g:'g5',
+    full:'Sistema Integrado de Gestão Empresarial',
+    def:'Sistema que unifica todos os processos e departamentos de uma empresa em uma única plataforma: compras, vendas, financeiro, produção, logística, RH e fiscal. Elimina silos de informação, automatiza fluxos e garante que todos os setores trabalhem com os mesmos dados em tempo real.',
+    ex:'Quando um vendedor da <strong>Natura</strong> finaliza um pedido no SAP: automaticamente o ERP baixa o estoque, verifica o limite de crédito do cliente, aciona o CD para separação, emite a nota fiscal, programa a transportadora e cria o lançamento financeiro — tudo em segundos, sem intervenção humana.',
+    tags:['SAP','TOTVS','Integração','Automação'],
+    rel:['WMS','TMS','SC','MRP'] },
+
+  { c:8,r:1, num:18, sym:'Freight',    name:'Frete',                   g:'g4',
+    full:'Custo e Gestão do Transporte de Cargas',
+    def:'Valor cobrado pelo serviço de transporte de mercadorias de uma origem a um destino. O frete pode ser calculado por peso real ou cubado, distância, modal (rodoviário, aéreo, marítimo, ferroviário), urgência e características especiais da carga (perigosa, refrigerada, frágil). Representa entre 5% e 15% do faturamento de empresas logísticas.',
+    ex:'Uma empresa de SP envia 20kg de eletrônicos para Manaus: <strong>Rodoviário</strong> (R$180, 12 dias via balsa) vs <strong>Aéreo TAM Cargo</strong> (R$420, 2 dias). Para produto com custo de R$5.000 e prazo prometido de 5 dias, o aéreo é obrigatório mesmo sendo 2,3x mais caro.',
+    tags:['Modal','Tabela','Custo','Transportadora'],
+    rel:['TMS','SC','CrossDocking','LT'] },
+
+  { c:8,r:2, num:19, sym:'Cross\nDocking', name:'Cross Docking',       g:'g4',
+    full:'Distribuição Sem Armazenagem Intermediária',
+    def:'Técnica logística onde as mercadorias recebidas no CD são imediatamente redirecionadas para saída, sem períodos de armazenamento. O produto "cruza" o dock de recebimento para o dock de expedição em poucas horas. Reduz drasticamente custos de armazenagem e acelera o fluxo.',
+    ex:'No <strong>CD de cross-docking do Walmart</strong>: caminhões de fornecedores chegam às 6h com produtos por categoria. Equipes quebram os paletes e remontam por loja destino. Às 14h os caminhões saem para 300 lojas diferentes — o produto ficou <strong>menos de 8 horas</strong> no CD, sem tocar no estoque.',
+    tags:['Velocidade','Sem estoque','Hub','Transferência'],
+    rel:['CD','TMS','WMS','SC'] },
+
+  { c:8,r:3, num:15, sym:'MRP',        name:'Material Requirements',   g:'g6',
+    full:'Planejamento de Necessidades de Materiais',
+    def:'Sistema de planejamento que calcula quais materiais, componentes e matérias-primas são necessários para produzir determinada quantidade de produto acabado, em qual momento e em que quantidade. Parte da BOM (Bill of Materials), do estoque atual e das ordens de produção planejadas.',
+    ex:'Uma fábrica de cadeiras vai produzir <strong>500 unidades</strong> no próximo mês. O MRP decompõe: 2.000 pés de madeira, 500 espumas de assento, 1.000 m de tecido. Verifica estoque atual, desconta o que tem e dispara ordens de compra apenas para o que falta, com o prazo correto de cada fornecedor.',
+    tags:['BOM','Produção','Componentes','Manufatura'],
+    rel:['ERP','DRP','SC','VMI'] },
+
+  { c:5,r:1, num:22, sym:'OTIF',       name:'On Time In Full',         g:'g7',
+    full:'Entrega no Prazo e Completa',
+    def:'Indicador que mede simultaneamente duas dimensões críticas: se o pedido foi entregue no prazo combinado (On Time) e se foi entregue com todos os itens corretos e nas quantidades exatas (In Full). Um único pedido só é contabilizado como OTIF se passar em ambos os critérios. É o KPI mais exigente de nível de serviço logístico.',
+    ex:'O <strong>Walmart EUA</strong> exige OTIF mínimo de <strong>98%</strong> de seus fornecedores. Quem fica abaixo leva multa de 3% sobre o valor do pedido. Em 2017, a nova política custou milhões para grandes marcas como P&G e Kraft Heinz — isso forçou uma revolução na logística do setor.',
+    tags:['KPI','Nível de serviço','Prazo','Completude'],
+    rel:['SLA','LT','KPI','TMS'] },
+
+  { c:6,r:1, num:20, sym:'KPI',        name:'Key Performance Indicator', g:'g6',
+    full:'Indicador-Chave de Desempenho',
+    def:'Métricas quantificáveis e mensuráveis que monitoram o desempenho de processos logísticos em relação a objetivos estratégicos previamente definidos. Um bom KPI é específico, mensurável, atingível, relevante e temporal (SMART). Sem KPIs, gestão logística é baseada em intuição, não em dados.',
+    ex:'Dashboard de um gerente de logística: <strong>OTIF 94,2%</strong> (meta 97%), <strong>Giro de Estoque 8,3x</strong> (meta 10x), <strong>Custo por Pedido R$12,40</strong> (meta R$11), <strong>NPS de Entrega 71</strong> (meta 75). Com 4 números, ele sabe exatamente onde agir nesta semana.',
+    tags:['Métrica','Dashboard','Decisão','SMART'],
+    rel:['OTIF','SLA','LT','ROI'] },
+
+  { c:7,r:1, num:21, sym:'DRP',        name:'Distribution Requirements', g:'g6',
+    full:'Planejamento de Necessidades de Distribuição',
+    def:'Sistema que calcula as necessidades de reposição em cada ponto da rede de distribuição (CDs regionais, lojas, filiais), considerando demanda prevista, estoque atual, estoque de segurança e lead times de reposição em cada elo. Versão do MRP aplicada à distribuição, não à produção.',
+    ex:'Uma rede de farmácias com <strong>800 filiais</strong> usa o DRP para calcular automaticamente quanto de Dipirona 500mg cada filial precisa na próxima semana. Considera sazonalidade (gripe), promoções planejadas e histórico local. Resultado: <strong>redução de 34%</strong> em rupturas e 21% em excesso de estoque.',
+    tags:['Rede','Reposição','Demanda','Filiais'],
+    rel:['MRP','ERP','SC','VMI'] },
+
+  { c:8,r:1, num:18, sym:'ROI',        name:'Return on Investment',    g:'g6',
+    full:'Retorno sobre o Investimento',
+    def:'Indicador financeiro que calcula a rentabilidade de um projeto ou investimento logístico. Fórmula: ROI = (Ganho – Custo) / Custo × 100. Fundamental para justificar investimentos em tecnologia (WMS, TMS, ERP), automação, novos CDs ou frotas. Permite comparar projetos diferentes numa mesma escala.',
+    ex:'Uma empresa investe <strong>R$800 mil</strong> em um sistema WMS. Com a automação: reduz erros de picking em 85% (economia de R$180 mil/ano em retrabalho), aumenta produtividade em 35% (R$220 mil/ano), reduz horas extras (R$80 mil/ano). Total: <strong>R$480 mil/ano. ROI = 60%/ano. Payback em 1,7 anos.</strong>',
+    tags:['Financeiro','Payback','Viabilidade','Projeto'],
+    rel:['KPI','ERP','WMS','TMS'] },
+];
+
+// Fix: ROI and Freight share col 8 row 1 — fix ROI position
+ELEMENTS[ELEMENTS.length-1].c = 8; ELEMENTS[ELEMENTS.length-1].r = 1; // ROI at 8,1
+// Actually make ROI a separate position
+const ROI_EL = ELEMENTS.pop();
+ROI_EL.c = 8; ROI_EL.r = 1; // will overlap freight — put ROI somewhere else
+// Actually the original table has 23 elements across 3 rows 8 cols = 24 slots max
+// Let me reposition: Freight is at col 8 row 1 (wrong from above), actually Freight is between col 7-8 area
+// Fix layout properly:
+ELEMENTS.find(e=>e.sym==='Freight').c = 8; ELEMENTS.find(e=>e.sym==='Freight').r = 1;
+ROI_EL.c = 8; ROI_EL.r = 3; // Put ROI at col8 row3 (was MRP at 8,3 but let's move MRP to 7,3 which is ERP... )
+// Simpler: just re-lay everything cleanly
+// Row 1: LT(1), empty(2), empty(3), empty(4), OTIF(5), KPI(6), DRP(7), Freight(8)
+// Row 2: JIT(1), SC(2), CD(3), SKU(4), FIFO(5), LIFO(6), TMS(7), CrossDocking(8)
+// Row 3: SLA(1), VMI(2), WMS(3), Picking(4), Packing(5), Backorder(6), ERP(7), MRP(8) -- add ROI somewhere
+// For now push ROI to end of row 3 as extra or combine
+
+// Rebuild clean
+const GRID = {};
+ELEMENTS.forEach(e => { GRID[`${e.c}-${e.r}`] = e; });
+// Add ROI
+ROI_EL.c = 8; ROI_EL.r = 3;
+GRID['8-3'] = ROI_EL; // overwrite MRP... let's put MRP at different spot
+// Adjust: move MRP to stay, push ROI differently
+// Final: just add ROI back and give it unique coords
+// Row 1 has slots 2,3,4 empty - put ROI at col 4 row 1
+ROI_EL.c = 4; ROI_EL.r = 1;
+GRID['4-1'] = ROI_EL;
+GRID['8-3'] = ELEMENTS.find(e=>e.sym==='MRP'); // keep MRP at 8,3
+
+// Build element map for lookups
+const EL_MAP = {};
+ELEMENTS.forEach(e => EL_MAP[e.sym.replace('\n','')] = e);
+EL_MAP['ROI'] = ROI_EL;
+EL_MAP['BackOrder'] = ELEMENTS.find(e=>e.sym.includes('Back'));
+
+// ── VISITED STATE ──
+let visited = new Set();
+function markVisited(sym) {
+  visited.add(sym);
+  document.querySelectorAll('.pt-cell[data-sym="'+sym+'"]').forEach(el => el.classList.add('visited'));
+  updateProgress();
+}
+function updateProgress() {
+  const total = 23;
+  const v = visited.size;
+  document.getElementById('visited-count').textContent = v;
+  const pct = Math.round((v/total)*100);
+  const offset = 283 - (283 * pct / 100);
+  const fg = document.getElementById('radial-fg');
+  if (fg) { fg.style.strokeDashoffset = offset; }
+  document.getElementById('radial-pct').textContent = pct + '%';
+}
+
+// ── BUILD GRID ──
+function buildGrid() {
+  const grid = document.getElementById('pt-grid');
+  grid.innerHTML = '';
+  let delay = 0;
+  for (let row = 1; row <= 3; row++) {
+    for (let col = 1; col <= 8; col++) {
+      const key = `${col}-${row}`;
+      const el = GRID[key];
+      const div = document.createElement('div');
+      if (!el) {
+        div.className = 'pt-cell empty';
+        div.style.background = 'transparent';
+        div.style.border = 'none';
+      } else {
+        div.className = `pt-cell ${el.g}`;
+        div.dataset.sym = el.sym.replace('\n','');
+        div.style.animationDelay = `${delay * 35}ms`;
+        div.innerHTML = `
+          <span class="c-num">${el.num}</span>
+          <span class="c-sym">${el.sym.replace('\n','<br>')}</span>
+          <span class="c-name">${el.name}</span>`;
+        div.addEventListener('click', () => openModal(el));
+        delay++;
+      }
+      grid.appendChild(div);
+    }
+  }
+}
+
+// ── GROUP LEGEND ──
+function buildLegend() {
+  const wrap = document.getElementById('group-legend');
+  Object.entries(GROUPS).forEach(([key, g]) => {
+    const chip = document.createElement('div');
+    chip.className = 'gl-chip';
+    chip.style.borderColor = g.acc + '50';
+    chip.style.color = g.acc;
+    chip.style.background = g.light;
+    chip.innerHTML = `<span class="dot" style="background:${g.acc}"></span>${g.name}`;
+    chip.addEventListener('click', () => filterByGroup(key, chip));
+    wrap.appendChild(chip);
+  });
+}
+
+let activeFilter = null;
+function filterByGroup(gkey, chip) {
+  if (activeFilter === gkey) {
+    activeFilter = null;
+    document.querySelectorAll('.pt-cell').forEach(c => c.classList.remove('dim'));
+    document.querySelectorAll('.gl-chip').forEach(c => c.style.opacity = '1');
+  } else {
+    activeFilter = gkey;
+    document.querySelectorAll('.pt-cell').forEach(c => {
+      c.classList.toggle('dim', c.classList.contains('empty') ? false : !c.classList.contains(gkey));
+    });
+    document.querySelectorAll('.gl-chip').forEach(c => c.style.opacity = c === chip ? '1' : '0.4');
+  }
+}
+
+// ── MODAL ──
+let currentEl = null;
+function openModal(el) {
+  currentEl = el;
+  markVisited(el.sym.replace('\n',''));
+  const g = GROUPS[el.g];
+
+  document.getElementById('m-band').style.background = g.acc;
+  document.getElementById('m-num').textContent = el.num;
+  document.getElementById('m-sym').textContent = el.sym.replace('\n',' ');
+  document.getElementById('m-sym').style.color = g.acc;
+  const icon = document.getElementById('m-icon');
+  icon.style.borderColor = g.acc + '50';
+  icon.style.background = g.light;
+
+  document.getElementById('m-glabel').textContent = g.label;
+  document.getElementById('m-title').textContent = el.sym.replace('\n',' ');
+  document.getElementById('m-full').textContent = el.full;
+  document.getElementById('m-def').textContent = el.def;
+
+  const exEl = document.getElementById('m-ex');
+  exEl.innerHTML = el.ex;
+  const exCard = document.getElementById('m-ex-card');
+  exCard.style.background = g.light;
+  exCard.style.borderColor = g.acc + '30';
+
+  // Keywords
+  const kw = document.getElementById('m-kw');
+  kw.innerHTML = el.tags.map(t => `<span class="keyword" style="color:${g.acc};border-color:${g.acc}40;background:${g.light}">${t}</span>`).join('');
+
+  // Connections
+  const connList = document.getElementById('m-conn');
+  connList.innerHTML = '';
+  (el.rel || []).forEach(sym => {
+    const rel = EL_MAP[sym] || ELEMENTS.find(e => e.sym.replace('\n','').includes(sym)) || Object.values(EL_MAP).find(e => e && e.sym.replace('\n','').includes(sym));
+    if (!rel) return;
+    const rg = GROUPS[rel.g];
+    const item = document.createElement('div');
+    item.className = 'conn-item';
+    item.style.color = rg.acc;
+    item.innerHTML = `
+      <span class="conn-sym" style="color:${rg.acc}">${rel.sym.replace('\n',' ')}</span>
+      <div class="conn-info">
+        <div class="conn-name">${rel.name}</div>
+        <div class="conn-rel">${rel.full}</div>
+      </div>
+      <span class="conn-arrow">→</span>`;
+    item.addEventListener('click', () => { closeModal(); setTimeout(() => openModal(rel), 200); });
+    connList.appendChild(item);
+  });
+
+  // Reset modal tabs
+  document.querySelectorAll('.modal-tab').forEach((t,i) => t.classList.toggle('active', i===0));
+  document.querySelectorAll('.modal-panel').forEach((p,i) => p.classList.toggle('active', i===0));
+
+  document.getElementById('overlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('overlay').classList.remove('show');
+  document.body.style.overflow = '';
+}
+function closeOverlay(e) { if (e.target === document.getElementById('overlay')) closeModal(); }
+document.addEventListener('keydown', e => { if (e.key==='Escape') closeModal(); });
+
+function switchModalTab(id, el) {
+  document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.modal-panel').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('mp-'+id).classList.add('active');
+}
+
+// ── GLOSSARY ──
+function buildGloss() {
+  const allEls = [...ELEMENTS, ROI_EL].sort((a,b) => a.sym.localeCompare(b.sym));
+  const grid = document.getElementById('gloss-grid');
+  grid.innerHTML = '';
+  allEls.forEach(el => {
+    const g = GROUPS[el.g];
+    const card = document.createElement('div');
+    card.className = 'gloss-card';
+    card.dataset.name = el.name.toLowerCase();
+    card.dataset.sym = el.sym.toLowerCase();
+    card.dataset.full = el.full.toLowerCase();
+    card.innerHTML = `
+      <div class="gloss-stripe" style="background:${g.acc}"></div>
+      <div class="gloss-card-header">
+        <div class="gloss-sym" style="color:${g.acc};border-color:${g.acc}30;background:${g.light}">${el.sym.replace('\n',' ')}</div>
+        <div class="gloss-card-meta">
+          <div class="gloss-card-name">${el.name}</div>
+          <div class="gloss-card-full">${el.full}</div>
+        </div>
+      </div>
+      <p class="gloss-card-def">${el.def}</p>`;
+    card.addEventListener('click', () => { switchTab('tabela', document.querySelector('.nav-tab')); setTimeout(()=>openModal(el),100); });
+    grid.appendChild(card);
+  });
+}
+
+function filterGloss(q) {
+  const query = q.toLowerCase();
+  document.querySelectorAll('.gloss-card').forEach(card => {
+    const match = !query || card.dataset.name.includes(query) || card.dataset.sym.includes(query) || card.dataset.full.includes(query);
+    card.style.display = match ? '' : 'none';
+  });
+}
+
+// ── TABS ──
+function switchTab(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  // find the right tab
+  document.querySelectorAll('.nav-tab').forEach(t => {
+    if (t.textContent.toLowerCase().includes(id) || (id==='tabela' && t.textContent.includes('Tabela'))) {
+      t.classList.add('active');
+    }
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── QUIZ ──
+const QUIZ_QS = [
+  { q: 'O que é Lead Time?', a: 0, opts: ['Tempo total do início ao fim de um processo logístico','Código único que identifica um produto no estoque','Sistema de gestão de armazém','Entrega no prazo e completa'], el: 'LT', tip: 'Lead Time mede toda a duração de um processo, de ponta a ponta.' },
+  { q: 'Qual sigla representa o sistema de gestão de armazém?', a: 1, opts: ['TMS','WMS','ERP','MRP'], el: 'WMS', tip: 'WMS = Warehouse Management System. Gestão completa de operações de armazém.' },
+  { q: 'JIT (Just in Time) foi desenvolvido por qual empresa?', a: 2, opts: ['Ford','General Motors','Toyota','Amazon'], el: 'JIT', tip: 'A Toyota criou o JIT como parte do Toyota Production System (TPS) nos anos 1950.' },
+  { q: 'O que significa OTIF?', a: 3, opts: ['On Track In Flow','Order Time In Full','On Time In Finance','On Time In Full'], el: 'OTIF', tip: 'OTIF mede se a entrega foi feita no prazo (On Time) e completa (In Full).' },
+  { q: 'Qual é a principal diferença entre FIFO e LIFO?', a: 1, opts: ['FIFO é para produtos eletrônicos, LIFO para alimentos','No FIFO o mais antigo sai primeiro; no LIFO o mais recente sai primeiro','FIFO é um sistema de software; LIFO é um método contábil','Não há diferença prática entre eles'], el: 'FIFO', tip: 'FIFO = First In First Out (prioritiza os mais antigos). LIFO = Last In First Out (prioritiza os mais recentes).' },
+  { q: 'SKU é utilizado para:', a: 0, opts: ['Identificar cada variação específica de produto no estoque','Calcular o custo de transporte por modal','Medir o desempenho de entregas','Planejar necessidades de produção'], el: 'SKU', tip: 'SKU (Stock Keeping Unit) é o código único de cada variação de produto.' },
+  { q: 'No Cross Docking, o produto:', a: 2, opts: ['Fica armazenado por pelo menos 30 dias','É enviado diretamente da fábrica ao cliente','É transferido do recebimento para expedição sem armazenagem','Passa por inspeção de qualidade antes de ser distribuído'], el: 'CrossDocking', tip: 'No Cross Docking o produto cruza o CD sem armazenagem intermediária.' },
+  { q: 'Um SLA (Service Level Agreement) é:', a: 1, opts: ['Um software de gestão logística','Um contrato que define padrões mínimos de serviço','Um método de separação de pedidos','Uma métrica de desempenho financeiro'], el: 'SLA', tip: 'SLA é um acordo formal definindo padrões de qualidade e prazo entre prestador e cliente.' },
+  { q: 'Qual sistema integra todos os departamentos da empresa em uma única plataforma?', a: 3, opts: ['WMS','TMS','DRP','ERP'], el: 'ERP', tip: 'ERP (Enterprise Resource Planning) unifica compras, vendas, logística, financeiro e RH.' },
+  { q: 'ROI de 60% ao ano significa que:', a: 0, opts: ['O investimento retorna 60% do valor investido por ano','60% dos pedidos foram entregues no prazo','O estoque girou 60 vezes no ano','60% dos produtos passaram pelo Cross Docking'], el: 'ROI', tip: 'ROI = (Ganho - Custo) / Custo × 100. ROI de 60% = payback em menos de 2 anos.' },
+];
+
+let qIdx = 0, score = 0, qAnswered = false;
+
+function startQuiz() {
+  qIdx = 0; score = 0; qAnswered = false;
+  document.getElementById('quiz-start').style.display = 'none';
+  document.getElementById('quiz-result').classList.remove('show');
+  document.getElementById('quiz-result').style.display = 'none';
+  document.getElementById('quiz-game').style.display = 'block';
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = QUIZ_QS[qIdx];
+  qAnswered = false;
+  document.getElementById('q-num').textContent = `Pergunta ${qIdx+1} de ${QUIZ_QS.length}`;
+  document.getElementById('q-pbar').style.width = (qIdx/QUIZ_QS.length*100)+'%';
+  document.getElementById('q-question').textContent = q.q;
+  document.getElementById('q-feedback').className = 'quiz-feedback';
+  document.getElementById('q-feedback').textContent = '';
+  document.getElementById('q-next').className = 'quiz-next-btn';
+
+  const opts = document.getElementById('q-options');
+  opts.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-option';
+    btn.innerHTML = `<span class="opt-letter">${letters[i]}</span>${opt}`;
+    btn.addEventListener('click', () => answerQ(i, btn));
+    opts.appendChild(btn);
+  });
+}
+
+function answerQ(idx, btn) {
+  if (qAnswered) return;
+  qAnswered = true;
+  const q = QUIZ_QS[qIdx];
+  const correct = idx === q.a;
+  if (correct) score++;
+
+  document.querySelectorAll('.quiz-option').forEach((b, i) => {
+    b.classList.add('disabled');
+    if (i === q.a) b.classList.add('correct');
+    else if (b === btn && !correct) b.classList.add('wrong');
+  });
+
+  const fb = document.getElementById('q-feedback');
+  fb.className = `quiz-feedback show ${correct?'ok':'err'}`;
+  fb.innerHTML = (correct ? '✅ Correto! ' : '❌ Incorreto. ') + q.tip;
+
+  document.getElementById('q-next').className = 'quiz-next-btn show';
+  document.getElementById('q-next').textContent = qIdx < QUIZ_QS.length-1 ? 'Próxima →' : 'Ver Resultado →';
+}
+
+function nextQuestion() {
+  qIdx++;
+  if (qIdx >= QUIZ_QS.length) {
+    showResult();
+  } else {
+    renderQuestion();
+  }
+}
+
+function showResult() {
+  document.getElementById('quiz-game').style.display = 'none';
+  const res = document.getElementById('quiz-result');
+  res.style.display = 'block';
+  res.classList.add('show');
+
+  const pct = Math.round(score/QUIZ_QS.length*100);
+  document.getElementById('result-pct').textContent = pct+'%';
+
+  const titles = ['Continue estudando!','Bom começo!','Muito bem!','Excelente!','Perfeito!'];
+  const subs = [
+    `${score}/${QUIZ_QS.length} — Revise os elementos na tabela e tente novamente.`,
+    `${score}/${QUIZ_QS.length} — Você está no caminho certo. Pratique mais!`,
+    `${score}/${QUIZ_QS.length} — Conhecimento sólido em logística!`,
+    `${score}/${QUIZ_QS.length} — Você domina os fundamentos da logística!`,
+    `${score}/${QUIZ_QS.length} — Parabéns! Especialista em logística!`,
+  ];
+  const ti = Math.floor(pct/25);
+  document.getElementById('result-title').textContent = titles[Math.min(ti,4)];
+  document.getElementById('result-sub').textContent = subs[Math.min(ti,4)];
+
+  const colors = ['#ef4444','#f59e0b','#3b82f6','#10b981','#4f46e5'];
+  const ring = document.getElementById('result-ring');
+  ring.style.stroke = colors[Math.min(ti,4)];
+  const circ = 377;
+  ring.style.strokeDashoffset = circ;
+  setTimeout(() => {
+    ring.style.strokeDashoffset = circ - (circ * pct / 100);
+  }, 100);
+}
+
+// ── INIT ──
+buildGrid();
+buildLegend();
+buildGloss();
+</script>
+</body>
+</html>
