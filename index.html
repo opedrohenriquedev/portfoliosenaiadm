@@ -2047,6 +2047,11 @@
 
             statsCount.textContent = `${allFiles.length} materiais encontrados (${currentSemester === 'all' ? 'Todos os semestres' : currentSemester + 'º Semestre'})`;
 
+            // ORDENAÇÃO PADRÃO: DE A A Z (ALFABÉTICA PELO TÍTULO DO ARQUIVO)
+            allFiles.sort((a, b) => {
+                return (a.att.title || "").localeCompare(b.att.title || "", 'pt-BR', { sensitivity: 'base' });
+            });
+
             if (allFiles.length === 0) {
                 grid.innerHTML = `
                     <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-muted);">
