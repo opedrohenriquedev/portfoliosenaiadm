@@ -1499,6 +1499,201 @@
             box-shadow: 0 4px 25px rgba(0,0,0,0.5);
         }
 
+        /* SWITCHER DE VISTA: MATÉRIAS vs REPOSITÓRIO DIRETO */
+        .view-mode-selector {
+            display: inline-flex;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-full);
+            padding: 4px;
+            box-shadow: var(--shadow-subtle);
+            margin-bottom: 24px;
+            gap: 4px;
+        }
+
+        .view-mode-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 18px;
+            border-radius: var(--radius-full);
+            font-size: 13.5px;
+            font-weight: 700;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .view-mode-btn:hover {
+            color: var(--text-heading);
+        }
+
+        .view-mode-btn.active {
+            background: var(--senai-red);
+            color: #FFFFFF;
+            box-shadow: 0 4px 12px var(--senai-red-glow);
+        }
+
+        /* REPOSITÓRIO DIRETO DE ARQUIVOS */
+        .repository-view {
+            display: none;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .repo-filters-deck {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 20px 24px;
+            margin-bottom: 26px;
+            box-shadow: var(--shadow-card);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .repo-stats-text {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-heading);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .repo-type-chips {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .repo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 16px;
+        }
+
+        .file-card-pure {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: 16px 18px;
+            box-shadow: var(--shadow-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .file-card-pure:hover {
+            border-color: var(--senai-red-border);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .file-card-pure::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: transparent;
+            transition: background 0.2s ease;
+        }
+
+        .file-card-pure:hover::before {
+            background: var(--senai-red);
+        }
+
+        .file-card-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+        }
+
+        .file-pure-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .file-pure-icon.pdf { background: #FEE2E2; color: #DC2626; }
+        .file-pure-icon.image { background: #DCFCE7; color: #16A34A; }
+        .file-pure-icon.link { background: #DBEAFE; color: #2563EB; }
+        .file-pure-icon.video { background: #FEE2E2; color: #DC2626; }
+        .file-pure-icon.other { background: #F1F5F9; color: #64748B; }
+
+        .file-pure-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .file-pure-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-heading);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.3;
+        }
+
+        .file-pure-meta {
+            font-size: 11.5px;
+            color: var(--text-muted);
+            margin-top: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .file-pure-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .btn-pure-action {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-sm);
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-light);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 13px;
+            text-decoration: none;
+            transition: all 0.15s ease;
+        }
+
+        .btn-pure-action:hover {
+            color: var(--senai-red);
+            border-color: var(--senai-red-border);
+            background: var(--senai-red-soft);
+        }
+
         /* BACK TO TOP BUTTON */
         .btn-scroll-top {
             position: fixed;
@@ -1657,8 +1852,41 @@
                 </div>
             </div>
 
+            <!-- ALTERNADOR DE MODO: MATÉRIAS CURRICULARES vs REPOSITÓRIO DIRETO DE ARQUIVOS -->
+            <div style="display: flex; justify-content: center; margin-bottom: 24px;">
+                <div class="view-mode-selector">
+                    <button class="view-mode-btn active" id="btnModeCurriculum" onclick="switchViewMode('curriculum')">
+                        <i class="bi bi-grid-fill"></i> Matriz por Disciplinas
+                    </button>
+                    <button class="view-mode-btn" id="btnModeRepository" onclick="switchViewMode('repository')">
+                        <i class="bi bi-folder-fill"></i> Apenas Materiais & PDFs
+                    </button>
+                </div>
+            </div>
+
             <!-- CONTAINER DINÂMICO DOS CARDS -->
             <div id="componentsContainer"></div>
+
+            <!-- REPOSITÓRIO DIRETO DE MATERIAIS (SEM DETALHES DE ATIVIDADES) -->
+            <div id="repositoryView" class="repository-view">
+                <div class="repo-filters-deck">
+                    <div class="repo-stats-text">
+                        <i class="bi bi-collection text-danger"></i>
+                        <span id="repoStatsCount">Exibindo todos os materiais</span>
+                    </div>
+
+                    <div class="repo-type-chips">
+                        <button class="filter-chip active" data-type="all" onclick="filterRepoType('all', this)">Todos</button>
+                        <button class="filter-chip" data-type="pdf" onclick="filterRepoType('pdf', this)"><i class="bi bi-file-earmark-pdf"></i> Apostilas & PDFs</button>
+                        <button class="filter-chip" data-type="image" onclick="filterRepoType('image', this)"><i class="bi bi-image"></i> Imagens</button>
+                        <button class="filter-chip" data-type="link" onclick="filterRepoType('link', this)"><i class="bi bi-link-45deg"></i> Links</button>
+                    </div>
+                </div>
+
+                <div class="repo-grid" id="repoGrid">
+                    <!-- Arquivos inseridos via JavaScript -->
+                </div>
+            </div>
 
         </div>
 
@@ -1748,6 +1976,124 @@
         let currentComponent = null;
         let searchFilterType = 'all';
         let inlineFilterQuery = '';
+        let currentViewMode = 'curriculum';
+        let repoFilterType = 'all';
+
+        function switchViewMode(mode) {
+            currentViewMode = mode;
+            const btnCurric = document.getElementById('btnModeCurriculum');
+            const btnRepo = document.getElementById('btnModeRepository');
+            const compContainer = document.getElementById('componentsContainer');
+            const repoView = document.getElementById('repositoryView');
+
+            if (mode === 'curriculum') {
+                btnCurric.classList.add('active');
+                btnRepo.classList.remove('active');
+                compContainer.style.display = 'block';
+                repoView.style.display = 'none';
+                renderComponents();
+            } else {
+                btnRepo.classList.add('active');
+                btnCurric.classList.remove('active');
+                compContainer.style.display = 'none';
+                repoView.style.display = 'block';
+                renderRepository();
+            }
+        }
+
+        function filterRepoType(type, btn) {
+            repoFilterType = type;
+            document.querySelectorAll('.repo-type-chips .filter-chip').forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            renderRepository();
+        }
+
+        function renderRepository() {
+            const grid = document.getElementById('repoGrid');
+            const statsCount = document.getElementById('repoStatsCount');
+            grid.innerHTML = '';
+
+            const allFiles = [];
+
+            window.PORTFOLIO_DATA.forEach(comp => {
+                if (currentSemester !== 'all' && String(comp.semester) !== currentSemester) {
+                    return;
+                }
+
+                comp.contents.forEach(unit => {
+                    unit.activities.forEach(act => {
+                        act.attachments.forEach(att => {
+                            if (inlineFilterQuery) {
+                                const match = normalizeStr(att.title).includes(inlineFilterQuery) ||
+                                              normalizeStr(comp.name).includes(inlineFilterQuery) ||
+                                              normalizeStr(comp.code).includes(inlineFilterQuery);
+                                if (!match) return;
+                            }
+
+                            if (repoFilterType !== 'all' && att.type !== repoFilterType) {
+                                return;
+                            }
+
+                            allFiles.push({
+                                comp,
+                                unit,
+                                act,
+                                att
+                            });
+                        });
+                    });
+                });
+            });
+
+            statsCount.textContent = `${allFiles.length} materiais encontrados (${currentSemester === 'all' ? 'Todos os semestres' : currentSemester + 'º Semestre'})`;
+
+            if (allFiles.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-muted);">
+                        <i class="bi bi-file-earmark-x" style="font-size: 40px; color: var(--text-subtle);"></i>
+                        <p style="margin-top: 12px; font-weight: 600;">Nenhum arquivo encontrado com os filtros selecionados.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            allFiles.forEach(item => {
+                const att = item.att;
+                const comp = item.comp;
+
+                let icon = 'bi-paperclip';
+                let iconClass = 'other';
+                if (att.type === 'pdf') { icon = 'bi-file-earmark-pdf'; iconClass = 'pdf'; }
+                else if (att.type === 'image') { icon = 'bi-image'; iconClass = 'image'; }
+                else if (att.type === 'link') { icon = 'bi-link-45deg'; iconClass = 'link'; }
+                else if (att.type === 'video') { icon = 'bi-play-circle'; iconClass = 'video'; }
+
+                const card = document.createElement('div');
+                card.className = 'file-card-pure';
+                card.onclick = () => openMediaViewer(att);
+
+                card.innerHTML = `
+                    <div class="file-card-left">
+                        <div class="file-pure-icon ${iconClass}">
+                            <i class="bi ${icon}"></i>
+                        </div>
+                        <div class="file-pure-info">
+                            <span class="file-pure-title" title="${escapeHtml(att.title)}">${escapeHtml(att.title)}</span>
+                            <span class="file-pure-meta">${comp.code} • ${comp.semester}º Semestre ${att.is_local ? '• <span class="local-badge">Local</span>' : ''}</span>
+                        </div>
+                    </div>
+                    <div class="file-pure-actions" onclick="event.stopPropagation()">
+                        <a href="${att.download_url || att.url}" download class="btn-pure-action" title="Download direto">
+                            <i class="bi bi-download"></i>
+                        </a>
+                        <a href="${att.preview_url || att.url}" target="_blank" class="btn-pure-action" title="Abrir">
+                            <i class="bi bi-box-arrow-up-right"></i>
+                        </a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
 
         function normalizeStr(str) {
             return (str || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
@@ -1813,7 +2159,11 @@
         // FILTRO EM TEMPO REAL NOS CARDS (INLINE)
         function filterCardsInRealTime(val) {
             inlineFilterQuery = normalizeStr(val.trim());
-            renderComponents();
+            if (currentViewMode === 'curriculum') {
+                renderComponents();
+            } else {
+                renderRepository();
+            }
         }
 
         // RENDERIZAÇÃO DOS CARDS COM FILTROS COMBINADOS
@@ -1930,7 +2280,11 @@
             }
 
             navigateToHome(false);
-            renderComponents();
+            if (currentViewMode === 'curriculum') {
+                renderComponents();
+            } else {
+                renderRepository();
+            }
         }
 
         function navigateToHome(updateUrl = true) {
